@@ -1,11 +1,64 @@
 <?
-
 /*
+Plugin Name: Hansel & Gretel
+Plugin URI: http://rodaine.com/wordpress/hansel-and-gretel
+Description: Adds fine-tuned breadcrumb generation to your Wordpress Site, including custom structure, markup, and microdata.
+Author: Chris Roche & Taylor Gorman [Clark Nikdel Powell]
+Author URI: http://clarknikdelpowell.com/
+Version: 0.0.1
+License: GPL2
 
-TYPICAL WORDPRESS PLUGIN JARGON WILL NEED TO GO HERE
+Copyright 2012  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
 
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+final class HAG_Breadcrumbs {
+	
+	public static function activate() {
+		
+	}
+	
+	public static function deactivate() {
+		
+	}
+	
+	public static function uninstall() {
+		
+	}
+	
+	public static function initialize() {
+		
+	}
+	
+	public static function display(array $args = null) {
+		
+	}
+	
+}
+
+register_activation_hook(__FILE__, array('HAG_Breadcrumbs', 'activate'));
+register_deactivation_hook(__FILE__, array('HAG_Breadcrumbs', 'deactivate'));
+register_uninstall_hook(__FILE__, array('HAG_Breadcrumbs', 'uninstall'));
+
+HAG_Breadcrumbs::initialize();
+
+function HAG_Breadcrumbs(array $options = null) {
+	
+}
+
+/*
 function breadcrumbs($args=0) {
 	
 	$defaults = array(
@@ -65,5 +118,5 @@ function breadcrumbs($args=0) {
 	endif;
 	
 } // function breadcrumbs
-
+*/
 ?>
