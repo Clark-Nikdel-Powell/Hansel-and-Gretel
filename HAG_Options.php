@@ -29,6 +29,17 @@ final class HAG_Options {
 	private static $defaults = array(
 		
 		/**
+		 * Whether or not debug information should be printed to the output.
+		 */
+		'debug_show' => false,
+		
+		/**
+		 * Whether or not the debug information should be printed in a comment.
+		 * Otherwise, the debug information will be output in a <pre> element.
+		 */
+		 'debug_comment' => true,
+		
+		/**
 		 * The HTML element that wraps the entire breadcrumbs list.
 		 */
 		'wrapper_element' => 'p',
