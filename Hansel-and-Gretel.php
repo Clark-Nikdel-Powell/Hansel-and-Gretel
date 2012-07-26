@@ -24,38 +24,37 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+require_once plugin_dir_path(__FILE__).'HAG_Options.php';
+
 final class HAG_Breadcrumbs {
 	
 	public static function activate() {
-		
-	}
-	
-	public static function deactivate() {
-		
+		add_option(HAG_Options::option_name, array(), '', 'yes');
 	}
 	
 	public static function uninstall() {
-		
+		delete_option(HAG_Options::option_name);
 	}
 	
 	public static function initialize() {
-		
+		HAG_Options::get_defaults();
 	}
 	
-	public static function display(array $args = null) {
+	public static function display(array $options = null) {
+		if (!is_array($options)) $options = array();
+		
 		
 	}
 	
 }
 
 register_activation_hook(__FILE__, array('HAG_Breadcrumbs', 'activate'));
-register_deactivation_hook(__FILE__, array('HAG_Breadcrumbs', 'deactivate'));
 register_uninstall_hook(__FILE__, array('HAG_Breadcrumbs', 'uninstall'));
 
 HAG_Breadcrumbs::initialize();
 
 function HAG_Breadcrumbs(array $options = null) {
-	
+	HAG_Breadcrumbs::display($options);
 }
 
 /*
