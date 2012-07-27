@@ -249,17 +249,23 @@ final class HAG_Breadcrumbs {
 	}
 	
 	private static function get_crumbs($options) {
-		global $post;
-		$crumbs = array();
-		
+
 		if (is_404()) 
 			return self::get_404_crumbs($options);
 		
 		if (is_front_page() || is_home())
 			return self::get_home_crumbs($options);
+			
+		if (is_search())
+			return self::get_search_crumbs($options);
+			
+		if (is_date())
+			return self::get_date_archive_crumbs($options);
 		
-		return $crumbs;
-		//return array('Home', 'Tree');
+		if (is_category())
+			return self::get_category_crumbs($options);	
+		
+		return array();
 	}
 	
 	private static function get_404_crumbs($options) {
@@ -276,6 +282,93 @@ final class HAG_Breadcrumbs {
 			);
 			
 		return $crumbs;
+	}
+	
+	private static function get_search_crumbs($options) {
+		$crumbs = self::get_home_crumbs($options);
+		if (!$options['last_show']) return $crumbs;
+
+		$crumbs[] = self::get_crumb(
+			$options,
+			$options['search_label'],
+			'',
+			false,
+			!$options['search_query']
+		);
+		if (!$options['search_query']) return $crumbs;
+	
+		$crumbs[] = self::get_crumb(
+			$options,
+			get_search_query(),
+			'',
+			false,
+			true
+		);
+
+		return $crumbs;
+	}
+	
+	private static function get_date_archive_crumbs($options) {
+		$crumbs = self::get_home_crumbs($options);
+		$date = new DateTime(get_the_date());
+		$last_show = $options['last_show'];
+		
+		if (is_year() && !$last_show) return $crumbs;
+		
+		$crumbs[] = self::get_crumb(
+			$options,
+			$date->format('Y'),
+			get_year_link($date->format('Y')),
+			false,
+			is_year()
+		);
+		
+		if (is_year() || (is_month() && !$last_show)) return $crumbs;
+		
+		$crumbs[] = self::get_crumb(
+			$options,
+			$date->format('F'),
+			get_month_link($date->format('Y'), $date->format('n')),
+			false,
+			is_month()
+		);
+		
+		if (is_month() || (is_day() && !$last_show)) return $crumbs;
+		
+		$crumbs[] = self::get_crumb(
+			$options,
+			$date->format('jS'),
+			get_day_link($date->format('Y'), $date->format('n'), $date->format('j')),
+			false,
+			is_day()
+		);
+		
+		return $crumbs;
+	}
+	
+	private static function get_category_crumbs($options) {
+		$crumbs = self::get_home_crumbs($options);
+		$cat = get_category(get_query_var('cat'));
+		
+		if (is_null($cat)) return $crumbs;
+
+		//var_dump($cat);
+		
+		$first = true;
+		$rev_crumbs = array();		
+		while (!is_wp_error($cat)) {
+			$rev_crumbs[] = self::get_crumb(
+				$options,
+				$cat->name,
+				get_category_link($cat->term_id),
+				false,
+				$first
+			);	
+			$cat = get_category($cat->parent);
+			$first = false;
+		}
+
+		return array_merge($crumbs, array_reverse($rev_crumbs));;
 	}
 	
 	public static function display(array $options = null) {
