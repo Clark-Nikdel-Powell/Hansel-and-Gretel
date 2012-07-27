@@ -31,13 +31,13 @@ final class HAG_Options {
 		/**
 		 * Whether or not debug information should be printed to the output.
 		 */
-		'debug_show' => false,
+		'debug_show' => true,
 		
 		/**
 		 * Whether or not the debug information should be printed in a comment.
 		 * Otherwise, the debug information will be output in a <pre> element.
 		 */
-		 'debug_comment' => true,
+		 'debug_comment' => false,
 		
 		/**
 		 * The HTML element that wraps the entire breadcrumbs list.
@@ -85,7 +85,7 @@ final class HAG_Options {
 		 * the opening of the breadcrumbs wrapper. May be left blank
 		 * for no content to be added.
 		 */
-		'prefix' => '',
+		'prefix' => '<b>You are here:</b> ',
 		
 		/**
 		 * The content and/or markup to be added immediately before
@@ -104,12 +104,12 @@ final class HAG_Options {
 		/**
 		 * Whether or not a root crumb for the site home should be shown.
 		 */
-		'home_show'  => true,
+		'home_show' => true,
 		
 		/**
 		 * Whether or not the root crumb should be linked to the site home.
 		 */
-		'home_link'  => true,
+		'home_link' => true,
 		
 		/**
 		 * The label for the root crumb if it is included in the breadcrumbs.
@@ -126,7 +126,12 @@ final class HAG_Options {
 		 * The id applied to the root crumb if it is included.
 		 * May be left blank for no id to be added.
 		 */
-		'home_id'    => '',
+		'home_id' => '',
+		
+		/**
+		 * The label for the 404 crumb if last_show is true.
+		 */
+		'404_label' => '404 Error: Page Not Found',
 		
 		/**
 		 * Whether or not a crumb should be included for the post type
@@ -191,7 +196,7 @@ final class HAG_Options {
 		/**
 		 * Whether or not to include microdata on the breadcrumbs.
 		 */
-		'microdata_include' => true,
+		'microdata' => true,
 		
 		/**
 		 * An associative array of {post-type} => array() including the same
@@ -253,19 +258,30 @@ final class HAG_Options {
 	{
 		if (!is_array($options)) $options = array();
 		if (!is_string($post_type)) $post_type = '';
+		$defaults = self::get_defaults();
 		
 		if ('' === $post_type) 
-			return wp_parse_args($options, self::get_defaults());
+			return wp_parse_args($options, $defaults);
 		
+		$pt_key = 'post_types';
+
 		$pt_options = array();
-		if (is_array($options['post_types'])
-			&& array_key_exists($post_type, $options['post_types'])
-			&& is_array($options['post_types'][$post_type]))
-			$pt_options = $options['post_types'][$post_type];
-		
-		$pt_options = wp_parse_args($pt_options, self::get_defaults());
-		$options = wp_parse_args($options, $pt_options);
-		return $options;
+		if (is_array($defaults[$pt_key])
+			&& array_key_exists($post_type, $defaults[$pt_key])
+			&& is_array($defaults[$pt_key][$post_type]))
+			$pt_options = $defaults[$pt_key][$post_type];
+			
+		$fpt_options = array();	
+		if (array_key_exists($pt_key, $options)
+			&& is_array($options[$pt_key])
+			&& array_key_exists($post_type, $defaults[$pt_key])
+			&& is_array($options[$pt_key][$post_type]))
+			$fpt_options = $options[$pt_key][$post_type];
+
+		$output = wp_parse_args($pt_options, $defaults);
+		$output = wp_parse_args($options, $output);
+		$output = wp_parse_args($fpt_options, $output);
+		return $output;
 	}
 
 }
