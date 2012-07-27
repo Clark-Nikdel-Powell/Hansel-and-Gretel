@@ -31,13 +31,13 @@ final class HAG_Options {
 		/**
 		 * Whether or not debug information should be printed to the output.
 		 */
-		'debug_show' => true,
+		'debug_show' => false,
 		
 		/**
 		 * Whether or not the debug information should be printed in a comment.
 		 * Otherwise, the debug information will be output in a <pre> element.
 		 */
-		 'debug_comment' => false,
+		 'debug_comment' => true,
 		
 		/**
 		 * The HTML element that wraps the entire breadcrumbs list.
@@ -85,7 +85,7 @@ final class HAG_Options {
 		 * the opening of the breadcrumbs wrapper. May be left blank
 		 * for no content to be added.
 		 */
-		'prefix' => '<b>You are here:</b> ',
+		'prefix' => '',
 		
 		/**
 		 * The content and/or markup to be added immediately before
@@ -99,7 +99,7 @@ final class HAG_Options {
 		 * separator is padded on both sides by a single space. May be
 		 * left blank for no separator to be added.
 		 */
-		'separator' => '/',
+		'separator' => '&raquo;',
 		
 		/**
 		 * Whether or not a root crumb for the site home should be shown.
@@ -131,7 +131,7 @@ final class HAG_Options {
 		/**
 		 * The label for the 404 crumb if last_show is true.
 		 */
-		'404_label' => '404 Error: Page Not Found',
+		'404_label' => 'Page Not Found',
 		
 		/**
 		 * The label for search results pages if last_show is true.
@@ -155,13 +155,7 @@ final class HAG_Options {
 		 * Will only be applicable on posts that have assigned taxonomies.
 		 */
 		'taxonomy_show' => true,
-		
-		/**
-		 * Whether or not to show the name of the taxonomy in the breadcrumb list.
-		 * Will only be applicable on posts that have assigned taxonomies.
-		 */
-		'taxonomy_name_show' => false,
-		
+			
 		/**
 		 * Whether or not to show the ancestors of a hierarchical taxonomy if a
 		 * child term is assigned. Will only be applicable on posts that have
@@ -189,13 +183,13 @@ final class HAG_Options {
 		/**
 		 * Whether or not the last crumb (the current location) is linked.
 		 */
-		'last_link'  => true,
+		'last_link'  => false,
 		
 		/**
 		 * The class applied to the last crumb if it is shown.
 		 * May be left blank for no class to be added.
 		 */
-		'last_class' => '',
+		'last_class' => 'current',
 		
 		/**
 		 * The id applied to the last crumb if it is shown.
