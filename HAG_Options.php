@@ -134,6 +134,16 @@ final class HAG_Options {
 		'404_label' => '404 Error: Page Not Found',
 		
 		/**
+		 * The label for search results pages if last_show is true.
+		 */
+		'search_label' => 'Search Results',
+		
+		/**
+		 * Whether or not to include the search term as a crumb if last_show is true.
+		 */
+		'search_query' => false,
+		
+		/**
 		 * Whether or not a crumb should be included for the post type
 		 * of the current location. Will only be applicable on post types
 		 * where an archive exists.
