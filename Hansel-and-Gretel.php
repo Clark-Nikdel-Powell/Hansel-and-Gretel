@@ -1,4 +1,4 @@
-<?
+<? 
 /*
 Plugin Name: Hansel & Gretel
 Plugin URI: http://rodaine.com/wordpress/hansel-and-gretel
@@ -72,6 +72,11 @@ final class HAG_Breadcrumbs {
 		$output[] = sprintf('Site Front Page: %b', is_front_page());
 		$output[] = sprintf('Posts Home Page: %b', is_home());
 		$output[] = sprintf('Comments Popup Page: %b', is_comments_popup());
+
+		$output[] = '######################## QUERY ############################';
+		ob_start();
+		var_dump(get_queried_object());
+		$output[] = $comment ? ob_get_clean() : htmlentities(ob_get_clean());
 
 		$output[] = '######################## $POST ########################';
 		ob_start();
@@ -227,9 +232,9 @@ final class HAG_Breadcrumbs {
 			);	
 		}
 
-		//break out we aren't looking deeper
+		//break out if we aren't looking deeper
 		if ($fp || !$cbh) return $crumbs;
-		if (!$bh && (is_null($post) || 'post' !== $post->post_type)) return $crumbs;
+		if (!$bh && !is_null($post) && 'post' !== $post->post_type) return $crumbs;
 
 		//load in the custom blog page crumb
 		$blog = HAG_Utils::get_blog_home();
@@ -262,8 +267,20 @@ final class HAG_Breadcrumbs {
 		if (is_date())
 			return self::get_date_archive_crumbs($options);
 		
-		if (is_category())
-			return self::get_category_crumbs($options);	
+		if (is_category() || is_tag() || is_tax())
+			return self::get_taxonomy_crumbs($options);	
+			
+		if (is_author())
+			return self::get_author_crumbs($options);
+			
+		if (is_post_type_archive())
+			return self::get_post_type_crumbs($options);
+		
+		if (is_comments_popup())
+			return self::get_comment_popup_crumbs($options);
+		
+		if (is_singular())
+			return self::get_singular_crumbs($options);
 		
 		return array();
 	}
@@ -345,30 +362,186 @@ final class HAG_Breadcrumbs {
 		
 		return $crumbs;
 	}
-	
-	private static function get_category_crumbs($options) {
-		$crumbs = self::get_home_crumbs($options);
-		$cat = get_category(get_query_var('cat'));
-		
-		if (is_null($cat)) return $crumbs;
 
-		//var_dump($cat);
+	private static function get_author_crumbs($options) {
+		$crumbs = self::get_home_crumbs($options);
+		if (!$options['last_show']) return $crumbs;
 		
-		$first = true;
-		$rev_crumbs = array();		
-		while (!is_wp_error($cat)) {
+		$author = get_user_by('id', get_query_var('author'));
+		if (is_null($author) || is_wp_error($author)) return $crumbs;
+		
+		$crumbs[] = self::get_crumb(
+			$options,
+			$author->display_name,
+			get_author_posts_url($author->ID),
+			false,
+			true
+		);
+		
+		return $crumbs;
+	}
+	
+	private static function get_post_type_crumbs($options) {
+		$crumbs = self::get_home_crumbs($options);
+		if (!$options['last_show']) return $crumbs;
+			
+		$pt = get_queried_object();
+		if (is_null($pt) || is_wp_error($pt) || !$pt->has_archive) return $crumbs;
+		
+		$crumbs[] = self::get_crumb(
+			$options,
+			$pt->label,
+			get_post_type_archive_link($pt->name),
+			false,
+			true
+		);
+
+		return $crumbs;
+	}
+	
+	private static function get_taxonomy_crumbs($options) {
+		
+		$crumbs = self::get_home_crumbs($options);
+		
+		$term = get_queried_object();
+		if (is_null($term) || is_wp_error($term)) return $crumbs;
+		
+		$tax = get_taxonomy($term->taxonomy);
+		if (is_null($tax) || is_wp_error($tax)) return $crumbs;
+		
+		$pt = get_post_type_object($tax->object_type[0]);
+		
+		if (1 === count($tax->object_type) 
+			&& !is_null($pt) 
+			&& !is_wp_error($pt) 
+			&& $pt->has_archive) {
+			$crumbs[] = self::get_crumb(
+				$options,
+				$pt->label,
+				get_post_type_archive_link($pt->name),
+				false,
+				false
+			);
+		}
+		
+		$rev_crumbs = array();
+		
+		if ($options['last_show']) {
 			$rev_crumbs[] = self::get_crumb(
 				$options,
-				$cat->name,
-				get_category_link($cat->term_id),
+				$term->name,
+				get_term_link($term),
 				false,
-				$first
-			);	
-			$cat = get_category($cat->parent);
-			$first = false;
+				true
+			);
+		}
+		
+		if ($tax->hierarchical && $options['taxonomy_ancestors_show']) {
+			$term = get_term($term->parent, $term->taxonomy);
+			while (!is_wp_error($term)) {
+				$rev_crumbs[] = self::get_crumb(
+					$options,
+					$term->name,
+					get_term_link($term),
+					false,
+					false
+				);
+				$term = get_term($term->parent, $term->taxonomy);
+			}
+		}
+		
+		return array_merge($crumbs, array_reverse($rev_crumbs));
+	}
+	
+	private static function get_comment_popup_crumbs($options) {
+		return self::get_singular_crumbs($options);
+	}
+	
+	private static function get_singular_crumbs($options) {
+		global $post;
+		$crumbs = self::get_home_crumbs($options);
+		
+		$pt = get_post_type_object($post->post_type);
+		if (!is_null($pt) && !is_wp_error($pt) && $pt->has_archive) {
+			$crumbs[] = self::get_crumb(
+				$options,
+				$pt->label,
+				get_post_type_archive_link($pt->name),
+				false,
+				false
+			);
 		}
 
-		return array_merge($crumbs, array_reverse($rev_crumbs));;
+		$rev_crumbs = array();
+		if ($options['last_show']) {
+			$rev_crumbs[] = self::get_crumb(
+				$options,
+				$post->post_title,
+				get_permalink($post->ID),
+				false,
+				true
+			);
+		}
+		
+		if (!$options['taxonomy_ancestors_show']) return array_merge($crumbs, $rev_crumbs);
+		
+		if (is_post_type_hierarchical($pt->name)) {
+			foreach($post->ancestors as $aID) {
+				$ancestor = get_post($aID);
+				$rev_crumbs[] = self::get_crumb(
+					$options,
+					$ancestor->post_title,
+					get_permalink($ancestor->ID),
+					false,
+					false
+				);
+			}
+		} else {
+		
+			$tax_names = get_object_taxonomies($post);
+			$taxes = get_object_taxonomies($post, OBJECT);
+			$term_args = array('orderby' => 'count', 'order' => 'DESC');			
+			$term = null;
+
+			//get preferred taxonomy term if it exists
+			if (in_array($options['taxonomy_preferred'], $tax_names)) {
+				$tax_name = $options['taxonomy_preferred'];
+				$tax = array_key_exists($tax_name, $taxes) ? $taxes[$tax_name] : null;
+				if (!is_null($tax)) $terms = wp_get_object_terms($post->ID, $tax_name, $term_args);
+				if (count($terms) > 0) $term = $terms[0];
+			}
+			
+			//get hierarchical taxonomy term if it exists
+			if (is_null($term)) {
+				$hier_taxes = array();
+				foreach($taxes as $t) if ($t->hierarchical) $hier_taxes[] = $t->name;
+				$hier_terms = wp_get_object_terms($post->ID, $hier_taxes, $term_args);
+				if (!is_wp_error($hier_terms) && count($hier_terms) > 0) $term = $hier_terms[0];
+			}
+			
+			if (is_null($term)) {
+				$unhier_taxes = array();
+				foreach($taxes as $t) if (!$t->hierarchical) $unhier_taxes[] = $t->name;
+				$unhier_terms = wp_get_object_terms($post->ID, $unhier_taxes, $term_args);
+				if (!is_wp_error($unhier_terms) && count($unhier_terms) > 0) $term = $unhier_terms[0];
+			}
+			
+			if (!is_null($term)) {
+				do {
+					$rev_crumbs[] = self::get_crumb(
+						$options,
+						$term->name,
+						get_term_link($term),
+						false,
+						false
+					);
+					$term = get_term($term->parent, $term->taxonomy);
+				} while (!is_wp_error($term));
+			}
+			
+		}
+		
+		return array_merge($crumbs, array_reverse($rev_crumbs));
 	}
 	
 	public static function display(array $options = null) {
@@ -383,7 +556,7 @@ final class HAG_Breadcrumbs {
 		
 		
 		/*************************************** PRINT DEBUG INFORMATION IF DESIRED */
-		if ($options['debug_show']) self::debug_info($options);
+		if ($options['debug_show']) self::debug_info($options, $options['debug_comment']);
 		
 		
 		/************************************* OBTAIN CRUMBS AND EXIT IF NONE FOUND */
