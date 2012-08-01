@@ -43,56 +43,6 @@ final class HAG_Breadcrumbs {
 		//!TODO: Create Admin menu item
 	}
 	
-	private static function debug_info(array $options, $comment = false) {
-		global $post;
-		
-		$output = array();
-		$output[] = $comment ? '<!--' : '<pre>';
-
-		$output[] = '######################## HaG DEBUG INFO ########################';
-		
-		$output[] = sprintf('404: %b', is_404());
-		$output[] = sprintf('Search: %b', is_search());
-		$output[] = sprintf('Archive: %b', is_archive());
-		$output[] = sprintf('Custom Taxonomy Archive: %b', is_tax());
-		$output[] = sprintf('Category Archive: %b', is_category());
-		$output[] = sprintf('Tag Archive: %b', is_tag());
-		$output[] = sprintf('Author Archive: %b', is_author());
-		$output[] = sprintf('Date Archive: %b', is_date());
-		$output[] = sprintf('Year Archive: %b', is_year());
-		$output[] = sprintf('Month Archive: %b', is_month());
-		$output[] = sprintf('Day Archive: %b', is_day());
-		$output[] = sprintf('Custom Post-Type Archive: %b', is_post_type_archive());
-		$output[] = sprintf('Paged: %b', is_paged());
-		$output[] = sprintf('Singular Page: %b', is_singular());
-		$output[] = sprintf('Single Post Page: %b', is_single());
-		$output[] = sprintf('Attachment Post: %b', is_attachment());
-		$output[] = sprintf('Static Page: %b', is_page());
-		$output[] = sprintf('Custom Static Page: %b', is_page_template());
-		$output[] = sprintf('Site Front Page: %b', is_front_page());
-		$output[] = sprintf('Posts Home Page: %b', is_home());
-		$output[] = sprintf('Comments Popup Page: %b', is_comments_popup());
-
-		$output[] = '######################## QUERY ############################';
-		ob_start();
-		var_dump(get_queried_object());
-		$output[] = $comment ? ob_get_clean() : htmlentities(ob_get_clean());
-
-		$output[] = '######################## $POST ########################';
-		ob_start();
-		var_dump($post);
-		$output[] = $comment ? ob_get_clean() : htmlentities(ob_get_clean());
-		
-		$output[] = '######################## $OPTIONS ########################';
-		ob_start();
-		var_dump($options);
-		$output[] = $comment ? ob_get_clean() : htmlentities(ob_get_clean());
-		
-		$output[] = $comment ? '-->' : '</pre>';
-		
-		echo implode(PHP_EOL, $output);
-	}
-	
 	private static function get_wrapper(array $options, $open_tag = true) {
 		$wrapper_element = HAG_Utils::sanitize_element($options['wrapper_element']);
 		
@@ -458,7 +408,7 @@ final class HAG_Breadcrumbs {
 	}
 	
 	private static function get_singular_crumbs($options) {
-		global $post;
+		$post = get_queried_object();
 		$crumbs = self::get_home_crumbs($options);
 		
 		$pt = get_post_type_object($post->post_type);
@@ -556,7 +506,8 @@ final class HAG_Breadcrumbs {
 		
 		
 		/*************************************** PRINT DEBUG INFORMATION IF DESIRED */
-		if ($options['debug_show']) self::debug_info($options, $options['debug_comment']);
+		if ($options['debug_show']) 
+			HAG_Utils::debug_info($options, $options['debug_comment']);
 		
 		
 		/************************************* OBTAIN CRUMBS AND EXIT IF NONE FOUND */
