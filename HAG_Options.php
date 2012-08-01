@@ -37,7 +37,7 @@ final class HAG_Options {
 		 * Whether or not the debug information should be printed in a comment.
 		 * Otherwise, the debug information will be output in a <pre> element.
 		 */
-		 'debug_comment' => true,
+		'debug_comment' => true,
 		
 		/**
 		 * The HTML element that wraps the entire breadcrumbs list.
@@ -48,13 +48,13 @@ final class HAG_Options {
 		 * The class applied to the wrapper element.
 		 * May be left blank for no class to be added.
 		 */
-		'wrapper_class' => 'breadcrumbs',
+		'wrapper_class' => '',
 		
 		/**
 		 * The id applied to the wrapper element.
 		 * May be left blank for no id to be added.
 		 */
-		'wrapper_id' => '',
+		'wrapper_id' => 'breadcrumbs',
 		
 		/**
 		 * The HTML element that wraps each breadcrumb.
@@ -178,12 +178,12 @@ final class HAG_Options {
 		 * Whether or not to show the last crumb (the current location) in the
 		 * breadcrumbs.
 		 */
-		'last_show'  => true,
+		'last_show' => true,
 		
 		/**
 		 * Whether or not the last crumb (the current location) is linked.
 		 */
-		'last_link'  => false,
+		'last_link' => false,
 		
 		/**
 		 * The class applied to the last crumb if it is shown.
@@ -195,7 +195,7 @@ final class HAG_Options {
 		 * The id applied to the last crumb if it is shown.
 		 * May be left blank for no id to be added.
 		 */
-		'last_id'    => '',
+		'last_id' => '',
 		
 		/**
 		 * Whether or not to include microdata on the breadcrumbs.
