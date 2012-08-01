@@ -7,7 +7,6 @@
  */
 final class HAG_Utils {
 	
-	 
 	/**
 	 * Sanitize a provided element to a 'valid' HTML element name.
 	 * This does NOT check to see if the element is an actual HTML element,
@@ -28,7 +27,6 @@ final class HAG_Utils {
 			? $matches[0]
 			: '';
 	}
-	
 	
 	/**
 	 * Sanitize the id added to an element.
@@ -66,7 +64,6 @@ final class HAG_Utils {
 		return implode(' ', $matches[0]);
 	}
 	
-	
 	/**
 	 * Coalesce the class(es) applied to the given crumb, based on whether or not 
 	 * the crumb is the home page and/or the last crumb.
@@ -84,7 +81,6 @@ final class HAG_Utils {
 		if ($is_last) $crumb_class .= ' '.$options['last_class'];
 		return self::sanitize_class($crumb_class);
 	}
-	
 	
 	/**
 	 * Coalesce the id applied to the given crumb, based on whether or not the
@@ -104,7 +100,6 @@ final class HAG_Utils {
 		return HAG_Utils::sanitize_id($crumb_id);
 	}	
 	
-	
 	/**
 	 * Coalesce whether or not the crumb should have a link applied to it, based on
 	 * whether or not the crumb is the home page or the last crumb.
@@ -123,22 +118,54 @@ final class HAG_Utils {
 		return (bool)$crumb_link;
 	}
 	
+	/**
+	 * Checks whether or not a custom front page has been specified in the Wordpress
+	 * admin under Settings > Reading > Front page displays.
+	 * 
+	 * @access public
+	 * @static
+	 * @return bool
+	 */
 	public static function has_front_page() {
 		return 'posts' !== get_option('show_on_front', 'posts')
 			&& 0 < get_option('page_on_front', 0);
 	}
 	
+	/**
+	 * Checks whether or not a custom blog page has been specified in the WordPress
+	 * admin under Settings > Reading > Front page displays.
+	 * 
+	 * @access public
+	 * @static
+	 * @return bool
+	 */
 	public static function has_blog_home() {
 		return 'posts' !== get_option('show_on_front', 'posts')
 			&& 0 < get_option('page_for_posts', 0);
 	}
 
+	/**
+	 * Gets the post object of the custom front page if it exists. Returns null
+	 * otherwise.
+	 * 
+	 * @access public
+	 * @static
+	 * @return object
+	 */
 	public static function get_front_page() {
 		if (!self::has_front_page()) return null;
 		$id = (int) get_option('page_on_front');
 		return get_post($id);
 	}
 	
+	/**
+	 * Gets the post object of the custom blog home page if it exists. Returns null
+	 * otherwise.
+	 * 
+	 * @access public
+	 * @static
+	 * @return object
+	 */
 	public static function get_blog_home() {
 		if (!self::has_blog_home()) return null;
 		$id = (int) get_option('page_for_posts');
