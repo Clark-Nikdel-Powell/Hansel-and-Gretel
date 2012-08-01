@@ -1,5 +1,5 @@
 # Hansel & Gretel #
-_A WordPress Breadcrumb Generator_
+_A WordPress Breadcrumb Generator Plugin_
 
 > #### NOTE ####
 > This plugin is still in active development and __SHOULD NOT__ be used in production.
@@ -32,4 +32,51 @@ Sure! And a lot of them work really well for simple sites with simple hierarchie
 
 It might be obvious (considering the previous section) that this plugin seeks to address all the customizability problems with the existing breadcrumb plugin environment while still keeping it as easy to use as possible (read: `HAG_Breadcrumbs();`, done!). It's as simple as that. Hopefully it can live up to your expectations!
 
-## More To Come... ##
+## Features ##
+
+The following features are currently available unless otherwise specifed.
+
+### General ###
+
++ __Simple Installation__  
+Upload the plugin, activate via the WordPress admin, and drop the function where you want the breadcrumbs to appear in your template. Done! [Read on](#) for the juicy details.
+
++ __Fine-Tuned Control__  
+H&G works right out of the box, but oftentimes we want custom control. Nearly every aspect of the breadcrumbs rendering can be controlled by the [myriad of options](#) available.
+
++ __Microdata Integration__  
+H&G by default includes the microdata format for breadcrumbs 
+
+### Wrapper ###
+
+### Crumbs ###
+
+## Installation ##
+
+### Requirements & Compatibility ###
+
+### Instructions ###
+
+## Options ##
+
+### Wow there are a lot...I thought you said this was simple?! ###
+
+### How are options prioritized? ###
+
+### Debug ###
+
+### Wrapper ###
+
+### Crumbs ###
+
+### The Home Crumb ###
+
+### Post Types & Taxonomies ###
+
+### The Last Crumb ###
+
+## Release History ##
+
+## Many Thanks! ##
+
+## License ##
