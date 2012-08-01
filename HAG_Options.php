@@ -14,7 +14,6 @@ final class HAG_Options {
 	 */
 	const option_name = 'HAG_Options';
 
-
 	/**
 	 * The default settings for the Hansel & Gretel plugin. These defaults are
 	 * trumped by settings saved to the database via the admin settings page for
@@ -211,7 +210,6 @@ final class HAG_Options {
 		'post_types' => array()
 	);
 
-
 	/**
 	 * Saves the default settings for the site into the database. These settings
 	 * override the default settings defined in this class but are trumped by the
@@ -228,7 +226,6 @@ final class HAG_Options {
 		$options = wp_parse_args($options, self::$defaults);
 		update_option(self::option_name, $options);
 	}
-
 	
 	/**
 	 * Gets the default options for the plugin. if $include_options is set to
@@ -245,8 +242,7 @@ final class HAG_Options {
 		$options = get_option(self::option_name, array());
 		return wp_parse_args($options, self::$defaults);
 	}
-	
-	
+		
 	/**
 	 * Resolves the options at the function call with the default functions of the
 	 * plugin. Optionally, if the $post_type is specified, the options will be further
