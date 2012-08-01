@@ -65,60 +65,6 @@ final class HAG_Utils {
 	}
 	
 	/**
-	 * Coalesce the class(es) applied to the given crumb, based on whether or not 
-	 * the crumb is the home page and/or the last crumb.
-	 * 
-	 * @access public
-	 * @static
-	 * @param array $options
-	 * @param bool $is_home (default: false)
-	 * @param bool $is_last (default: false)
-	 * @return string
-	 */
-	public static function get_crumb_class(array $options, $is_home = false, $is_last = false) {
-		$crumb_class = $options['crumb_class'];
-		if ($is_home) $crumb_class .= ' '.$options['home_class'];
-		if ($is_last) $crumb_class .= ' '.$options['last_class'];
-		return self::sanitize_class($crumb_class);
-	}
-	
-	/**
-	 * Coalesce the id applied to the given crumb, based on whether or not the
-	 * crumb is the home page or the last crumb.
-	 * 
-	 * @access public
-	 * @static
-	 * @param array $options
-	 * @param bool $is_home (default: false)
-	 * @param bool $is_last (default: false)
-	 * @return string
-	 */
-	public static function get_crumb_id(array $options, $is_home = false, $is_last = false) {
-		$crumb_id = '';
-		if ($is_home) $crumb_id = $options['home_id'];
-		if ($is_last) $crumb_id = $options['last_id'];
-		return HAG_Utils::sanitize_id($crumb_id);
-	}	
-	
-	/**
-	 * Coalesce whether or not the crumb should have a link applied to it, based on
-	 * whether or not the crumb is the home page or the last crumb.
-	 * 
-	 * @access public
-	 * @static
-	 * @param array $options
-	 * @param bool $is_home (default: false)
-	 * @param bool $is_last (default: false)
-	 * @return bool
-	 */
-	public static function get_crumb_link(array $options, $is_home = false, $is_last = false) {
-		$crumb_link = $options['crumb_link'];
-		if ($is_home) $crumb_link = $options['home_link'];
-		if ($is_last) $crumb_link = $options['last_link'];
-		return (bool)$crumb_link;
-	}
-	
-	/**
 	 * Checks whether or not a custom front page has been specified in the Wordpress
 	 * admin under Settings > Reading > Front page displays.
 	 * 

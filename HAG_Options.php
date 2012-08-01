@@ -165,9 +165,9 @@ final class HAG_Options {
 		'taxonomy_ancestors_show' => true,
 		
 		/**
-		 * By default, the breadcrumbs will choose the first taxonomy associated
-		 * with the post if multiple are assigned. Choosing a preferred taxonomy
-		 * will attempt to choose the assigned taxonomy before falling back
+		 * By default, the breadcrumbs will choose the most popular taxonomy
+		 * associated with the post if multiple are assigned. Choosing a preferred
+		 * taxonomy will attempt to choose the assigned taxonomy before falling back
 		 * to the default method. Will only be applicable on posts that have
 		 * assigned hierarchical taxonomies.
 		 *
