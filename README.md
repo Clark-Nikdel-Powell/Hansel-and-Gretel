@@ -34,7 +34,7 @@ It might be obvious (considering the previous section) that this plugin seeks to
 
 ## Features ##
 
-The following features are currently available unless otherwise specifed.
+_The following features are currently available unless otherwise specifed._
 
 + __Simple Installation__  
 Upload the plugin, activate via the WordPress admin, and drop the function where you want the breadcrumbs to appear in your template. Done! [Read on](#) for the juicy details.
@@ -62,9 +62,32 @@ Hansel and Gretel was made by theme developers for theme developers. The default
 
 ## Installation ##
 
+_Installing Hansel & Gretel is easy-peasy, but of course there's a bit of administrative work on the front end you'll need to take care of._
+
 ### Requirements & Compatibility ###
 
+__Minimum (theoretical) Wordpress Version Required:__ 3.1.0  
+__Actually Tested Versions__ 3.3.2, 3.4.1
+
+If you find it non-operational on your particular flavor of WP, please let us know. 
+
 ### Instructions ###
+
+1. Download the [zip archive](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/zipball/master) and extract the contents.
+
+2. Make sure you're running Wordpress 3.1.0 or better. It won't work with older versions.
+
+3. Upload the `Hansel-and-Gretel` folder to your plugins directory (`/wp-content/plugins/Hansel-and-Gretel`).
+
+4. Activate the plugin through the Plugins page on the WordPress admin.
+
+5. Add the following snippet to your theme file(s) outside [The Loop](http://codex.wordpress.org/the_loop) where you want the breadcrumbs to appear:
+
+  ```php
+  <?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(); } ?>
+  ```
+
+6. Profit!
 
 ## Options ##
 
@@ -86,7 +109,13 @@ Hansel and Gretel was made by theme developers for theme developers. The default
 
 ### Post Types ###
 
-## Release History ##
+## Development ##
+
+### Release History ###
+
+### Upcoming Features ###
+
+### Want to Help? ###
 
 ## Many Thanks! ##
 
