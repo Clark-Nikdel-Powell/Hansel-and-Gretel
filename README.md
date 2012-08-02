@@ -36,20 +36,29 @@ It might be obvious (considering the previous section) that this plugin seeks to
 
 The following features are currently available unless otherwise specifed.
 
-### General ###
-
 + __Simple Installation__  
 Upload the plugin, activate via the WordPress admin, and drop the function where you want the breadcrumbs to appear in your template. Done! [Read on](#) for the juicy details.
 
 + __Fine-Tuned Control__  
-H&G works right out of the box, but oftentimes we want custom control. Nearly every aspect of the breadcrumbs rendering can be controlled by the [myriad of options](#) available.
+H&G works right out of the box, but oftentimes we want custom control. Nearly every aspect of the breadcrumbs rendering can be changed a'la the [myriad of options](#) available, either at the function call or via the provided admin menu (coming soon).
 
 + __Microdata Integration__  
-H&G by default includes the microdata format for breadcrumbs 
+H&G by default includes the microdata format for a [WebPage's breadcrumbs](http://schema.org/WebPage), a format that is jointly supported by [Bing](http://www.bing.com/community/site_blogs/b/search/archive/2011/06/02/bing-google-and-yahoo-unite-to-build-the-web-of-objects.aspx), [Google](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=1211158), [Yahoo!](http://developer.yahoo.com/blogs/ydn/posts/2011/06/introducing-schema-org-a-collaboration-on-structured-data/) and [Yandex](http://help.yandex.ru/webmaster/?id=1122752).
 
-### Wrapper ###
++ __Full Markup Control__  
+Choose any element to wrap your breadcrumbs, including optional class(es) or id attributes. Likewise, you can include prefix and suffix content right inside the wrapper element tags for further control.
 
-### Crumbs ###
++ __Template Hierarchy Based Rendering__  
+H&G utilizes the [WordPress Template Hierarchy](http://codex.wordpress.org/Template_Hierarchy) to determine which crumbs to show, including that elusive Comments Popup Window everybody (read: nobody) uses! This means, regardless of your theme, Hansel & Gretel will follow WP's lead about the content on the page.
+
++ __Custom Post Types & Taxonomies__ 
+Never worry about how breadcrumbs behave across your fancy new post types and taxonomies. H&G accounts for hierarchical and non-hierarchical types, whether or not they have an archive page, and also provides options to override breadcrumb display for individual post types if desired.
+
++ __Home & Last Crumbs__
+H&G allows full control in showing home breadcrumbs and even allows for customized Front Page versus Blog Home Page templates. Likewise, the last, current page crumb has equal control depending on the needs of your theme.
+
++ __Made for Theme Developers__  
+Hansel and Gretel was made by theme developers for theme developers. The default options and degree of customizability were all considered by our team of experienced WP developers to make sense right out of the box, with as little further customization as possible. Give it a try and let us know what you think. We all want H&G to be the simplest and smartest breadcrumb plugin you'll ever use!
 
 ## Installation ##
 
@@ -71,9 +80,11 @@ H&G by default includes the microdata format for breadcrumbs
 
 ### The Home Crumb ###
 
-### Post Types & Taxonomies ###
+### Taxonomies ###
 
 ### The Last Crumb ###
+
+### Post Types ###
 
 ## Release History ##
 
