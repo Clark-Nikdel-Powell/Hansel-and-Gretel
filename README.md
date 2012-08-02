@@ -1,10 +1,6 @@
 # Hansel & Gretel #
 _A WordPress Breadcrumb Generator Plugin_
 
-> #### NOTE ####
-> This plugin is still in active development and __SHOULD NOT__ be used in production.
-> Watch this repo to see when this plugin is ready for the real world!
-
 ## Where The Heck Am I? ##
 
 Let's face it: breadcrumbs are an integral part of websites these days. They give an immediate sense of hierarchy to your visitors and allow users to backtrack through your site to (hopefully) find more content. WordPress simplifies structuring sites how ever it seems reasonable, but it takes a bit more effort to generate breadcrumbs for all the different types of posts, and pages, and taxonomies, and archives, and ... you get the idea.
@@ -273,6 +269,7 @@ An associative array of `'{post-type}' => array(...)` including the same options
 ### Release History ###
 
 + [X.X.X](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _The Bleeding Edge..._
++ [0.0.3](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _August 2, 2012,_ First stable version release
 + [0.0.2](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/81dfcac5bce720e345d212ff07034d8b3bd94e19) _July 31, 2012,_ Refactored to split out Crumb and Wrapper logic into separate classes.
 + [0.0.1](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/b9a664fca0b786aae84cb0f94297fd207aba4bfb) _July 27, 2012,_ Finished basic breadcrumb generation.
 
@@ -284,7 +281,7 @@ An associative array of `'{post-type}' => array(...)` including the same options
 
 ### Want to Help? ###
 
-We'd love to see any improvements you may have that will improve Hansel & Gretel. Remember, the goal is to make it work for most cases right out of the box! Please be consistent with the project's coding style with your additions.
+We'd love to see anything you've got that will improve Hansel & Gretel. Remember, the goal is to make it work for most cases right out of the box! Please be consistent with the project's coding style with your additions.
 
 ## Many Thanks! ##
 
