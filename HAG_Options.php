@@ -148,13 +148,7 @@ final class HAG_Options {
 		 * where an archive exists.
 		 */
 		'post_type_show' => true,
-
-		/**
-		 * Whether or not to show an assigned taxonomy in the breadcrumb list.
-		 * Will only be applicable on posts that have assigned taxonomies.
-		 */
-		'taxonomy_show' => true,
-			
+		
 		/**
 		 * Whether or not to show the ancestors of a hierarchical taxonomy if a
 		 * child term is assigned. Will only be applicable on posts that have
