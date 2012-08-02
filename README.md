@@ -269,7 +269,7 @@ An associative array of `'{post-type}' => array(...)` including the same options
 ### Release History ###
 
 + [X.X.X](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _The Bleeding Edge..._
-+ [0.0.3](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _August 2, 2012,_ First stable version release
++ [0.0.3](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/9d187e7544a8f5b47425f549ddf72e0014c5ecbd) _August 2, 2012,_ First stable version release
 + [0.0.2](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/81dfcac5bce720e345d212ff07034d8b3bd94e19) _July 31, 2012,_ Refactored to split out Crumb and Wrapper logic into separate classes.
 + [0.0.1](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/b9a664fca0b786aae84cb0f94297fd207aba4bfb) _July 27, 2012,_ Finished basic breadcrumb generation.
 
