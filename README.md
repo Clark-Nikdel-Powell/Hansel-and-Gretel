@@ -134,7 +134,7 @@ Theme developers will be familiar with this pattern of providing settings to a f
 )); } ?>
 ```
 
-The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, The separator has been overriden to show `&raquo;` (&raquo;) instead.
+The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, the separator has been overriden to show `&raquo;` (&raquo;) instead.
 
 ### Debug Options ###
 
@@ -146,17 +146,127 @@ Whether or not debug information for the plugin should be printed to the output.
 
 Whether or not the debug information should be printed in an HTML comment. Otherwise, the debug information will be output in a `<pre>` element.
 
-### Wrapper ###
+### Wrapper Options ###
 
-### Crumbs ###
+#### `wrapper_element (string | Default: 'p')` ####
 
-### The Home Crumb ###
+The HTML element that wraps the entire breadcrumbs list. Any valid element name will be accepted; so use whatever makes semantic sense for your theme!
 
-### Taxonomies ###
+#### `wrapper_class (string | Default: '')` ####
 
-### The Last Crumb ###
+The class(es) applied to the wrapper element. May be left blank for no class(es) to be added.
 
-### Post Types ###
+#### `wrapper_id (string | Default: 'breadcrumbs')` ####
+
+The ID applied to the wrapper element. May be left blank for no ID to be added.
+
+#### `microdata (bool | Default: true)` ####
+
+Whether or not to include microdata on the breadcrumbs. Adds `itemprop="breadcrumb"` to the wrapper element per [Schema.org](http://schema.org/WebPage).
+
+#### `prefix (string | Default: '')` ####
+
+The content and/or markup to be added immediately after the opening of the breadcrumbs wrapper. May be left blank for no content to be added.
+
+#### `suffix (string | Default: '')` ####
+
+The content and/or markup to be added immediately before the closing of the breadcrumbs wrapper. May be left blank for no content to be added.
+
+### Crumb Options ###
+
+#### `separator (string | Default: '&raquo;')` ####
+
+The content and/or markup to be added between crumbs. The separator is padded on both sides by a single space before rendering. May be left blank for no separator to be added.
+
+#### `crumb_element (string | Default: '')` ####
+
+The HTML element that wraps each breadcrumb. May be left blank for no element to be applied.
+
+#### `crumb_class (string | Default: '')` ####
+
+The class(es) applied to the crumb element or crumb link if it exists. May be left blank for no class(es) to be added.
+
+#### `crumb_link (bool | Default: true)` ####
+
+Whether or not the crumbs should link to thier associated pages in the hierarchy.
+
+#### `link_class (string | Default: '')` ####
+
+The class(es) applied to the crumb link if it exists. May be left blank for no class(es) to be added.
+
+### The Home Crumb Options ###
+
+#### `home_show (bool | Default: true)` ####
+
+Whether or not a root crumb for the site home page should be shown.
+
+#### `home_link (bool | Default: true)` ####
+
+Whether or not the root crumb should be linked ot the site home page.
+
+#### `home_label (string | Default: 'Home')` ####
+
+The label for the root crumb if it is included.
+
+#### `home_class (string | Default: '')` ####
+
+The class(es) applied to the root crumb if it is included. May be left blank for no class(es) to be added.
+
+#### `home_id (string | Default: '')` ####
+
+The ID applied to the root crumb if it is included. May be left blank for no ID to be added.
+
+### Taxonomy Options ###
+
+#### `taxonomy_ancestors_show (bool | Default: true)` ####
+
+Whether or not to show the ancestors of a hierarchical term in a taxonomic archive. For a singular post page, whether or not to include taxonomic crumbs in the breadcrumbs.
+
+#### `taxonomy_preferred (string | Default: '')` ####
+
+By default, the breadcrumbs will choose the most popular taxonomy associated with the post if multiple are assigned. Choosing a preferred taxonomy will attempt to choose the assigned taxonomy before falling back to the default method. Will only be applicable on posts that have assigned taxonomies.
+
+### The Last Crumb Options ###
+
+#### `last_show (bool | Default: true)` ####
+
+Whether or not to show the last crumb (the current page) in the breadcrumbs.
+
+#### `last_link (bool | Default: false)` ####
+
+Whether or not the last crumb (the current page) is linked.
+
+#### `last_class (string | Default: 'current')` ####
+
+The class(es) applied to the last crumb if it is shown. May be left blank for no class(es) to be added.
+
+#### `last_id (string | Default: '')` ####
+
+The ID applied to the last crumb if it is shown. May be left blank for no ID to be added.
+
+### The Other Crumb Options ###
+
+#### `404_label (string | Default: 'Page Not Found')` ####
+
+The label for the 404 crumb if `last_show` is true.
+
+#### `search_label (string | Default: 'Search Results')` ####
+
+The label for search results pages if `last_show` is true and `search_query` is false.
+
+#### `search_query (bool | Default: false)` ####
+
+Whether or not to include the search term as a crumb if `last_show` is true. The query string is escaped prior to output via WordPress's `get_search_query()`.
+
+### Post Type Options ###
+
+#### `post_type_show (bool | Default: true)` ####
+
+Whether or not a crumb should be included for the post type of the current page. Will only be applicable on post types where an archive exists.
+
+#### `post_types (array | Default: array())` ####
+
+An associative array of `'{post-type}' => array(...)` including the same options as above, overriding for the keyed post type. These post-type-specific settings override any predefined defaults for the breadcrumbs. See the [above example](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#using-the-function-set-options) for usage.
 
 ## Development ##
 
