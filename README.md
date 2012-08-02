@@ -119,24 +119,32 @@ Theme developers will be familiar with this pattern of providing settings to a f
 
 ```php
 <?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(array(
-	'prefix' => 'You are here: ',
-	'last_link'  => true,
-	'separator'  => '|',
-	'post_types' => array(
-		'gizmo' => array(
-			'last_show'          => false,
-			'taxonomy_preferred' => 'category'
-		),
-		'whatzit' => array(
-			'separator' => '&raquo;'
-		)
-	)
+  'prefix'     => 'You are here: ',
+  'last_link'  => true,
+  'separator'  => '|',
+  'post_types' => array(
+    'gizmo' => array(
+      'last_show'          => false,
+      'taxonomy_preferred' => 'category'
+    ),
+    'whatzit' => array(
+      'separator' => '&raquo;'
+    )
+  )
 )); } ?>
 ```
 
 The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, The separator has been overriden to show `&raquo;` (&raquo;) instead.
 
-### Debug ###
+### Debug Options ###
+
+#### `debug_show (bool | Default: false)` ####
+
+Whether or not debug information for the plugin should be printed to the output.
+
+#### `debug_comment (bool | Default: true)` ####
+
+Whether or not the debug information should be printed in an HTML comment. Otherwise, the debug information will be output in a `<pre>` element.
 
 ### Wrapper ###
 
