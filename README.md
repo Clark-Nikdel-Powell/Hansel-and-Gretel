@@ -272,10 +272,41 @@ An associative array of `'{post-type}' => array(...)` including the same options
 
 ### Release History ###
 
++ [X.X.X](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _The Bleeding Edge..._
++ [0.0.2](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/81dfcac5bce720e345d212ff07034d8b3bd94e19) _July 31, 2012,_ Refactored to split out Crumb and Wrapper logic into separate classes.
++ [0.0.1](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/b9a664fca0b786aae84cb0f94297fd207aba4bfb) _July 27, 2012,_ Finished basic breadcrumb generation.
+
 ### Upcoming Features ###
+
++ Admin Menu for end-user friendly customization
++ WP Hook/Filter integration for intercepting the various steps of the breadcrumb generation, for the truly masochistic.
++ Globalization support.
 
 ### Want to Help? ###
 
+We'd love to see any improvements you may have that will improve Hansel & Gretel. Remember, the goal is to make it work for most cases right out of the box! Please be consistent with the project's coding style with your additions.
+
 ## Many Thanks! ##
 
+__Preliminary Development & Review:__ [Taylor Gorman](https://github.com/taylorgorman)  
+__Plugin Development & Testing:__ [Chris Roche](https://github.com/rodaine)  
+__SEO Consultation:__ [Seth Wilson](http://nikdel.com/)  
+
 ## License ##
+
+```
+Copyright 2012  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+```
