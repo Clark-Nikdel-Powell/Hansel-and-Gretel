@@ -51,10 +51,10 @@ Choose any element to wrap your breadcrumbs, including optional class(es) or id 
 + __Template Hierarchy Based Rendering__  
 H&G utilizes the [WordPress Template Hierarchy](http://codex.wordpress.org/Template_Hierarchy) to determine which crumbs to show, including that elusive Comments Popup Window everybody (read: nobody) uses! This means, regardless of your theme, Hansel & Gretel will follow WP's lead about the content on the page.
 
-+ __Custom Post Types & Taxonomies__ 
++ __Custom Post Types & Taxonomies__  
 Never worry about how breadcrumbs behave across your fancy new post types and taxonomies. H&G accounts for hierarchical and non-hierarchical types, whether or not they have an archive page, and also provides options to override breadcrumb display for individual post types if desired.
 
-+ __Home & Last Crumbs__
++ __Home & Last Crumbs__  
 H&G allows full control in showing home breadcrumbs and even allows for customized Front Page versus Blog Home Page templates. Likewise, the last, current page crumb has equal control depending on the needs of your theme.
 
 + __Made for Theme Developers__  
@@ -73,7 +73,7 @@ If you find it non-operational on your particular flavor of WP, please let us kn
 
 ### Instructions ###
 
-1. Download the [zip archive](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/zipball/master) and extract the contents.
+1. Download the [zip archive](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/zipball/master) and extract the contents. Alternatively, you could clone this repo to your local machine and always have an up-to-date version.
 
 2. Make sure you're running Wordpress 3.1.0 or better. It won't work with older versions.
 
@@ -81,19 +81,60 @@ If you find it non-operational on your particular flavor of WP, please let us kn
 
 4. Activate the plugin through the Plugins page on the WordPress admin.
 
-5. Add the following snippet to your theme file(s) outside [The Loop](http://codex.wordpress.org/the_loop) where you want the breadcrumbs to appear:
-
-  ```php
+5. Add the following snippet to your theme file(s) outside [The Loop](http://codex.wordpress.org/the_loop) where you want the breadcrumbs to appear:  
+```php
   <?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(); } ?>
-  ```
-
+```
+ 
 6. Profit!
 
 ## Options ##
 
 ### Wow there are a lot...I thought you said this was simple?! ###
 
+It is! Even though there are 30+ options that you can set on H&G, you don't need to set a single one to make it work out of the box. These options are available to fine-tune how you wish the breadcrumbs to appear and are completely...well, _optional_.
+
 ### How are options prioritized? ###
+
+There are many ways to set the options for this plugin, so knowing how the options are prioritized is important if you're wondering why the changes you just made aren't showing up. Below is the list of options from lowest to highest priority; higher priority options override matching lower priority ones.
+
+1. __Plugin Defaults__  
+These are the out-of-the-box default options set by the plugin. They provide the base for the behavior of the H&G.
+
+2. __Admin-Set Defaults__ (coming soon)  
+These are the options set for the plugin from the settings page in the WordPress Admin. These are a subset of the available options, but include the most widely used ones.
+
+3. __Admin-Set Post Type Defaults__ (coming soon)  
+These are post-type specific overrides to the global defaults set in the admin (#2). Want your Gizmo post-type breadcrumbs to show up differently? This is where you'd want to set it.
+
+4. __Function-Set Options__  
+When calling `HAG_Breadcrumbs();` in your template file, providing an array of options and their desired values will override all admin defaults. All options can be set from this method. See below for the format.
+
+5. __Function-Set Post Type Options__  
+Like the admin-set equivalent, these post-type specific options will override the global function-set ones (#4).
+
+### Using The Function-Set Options ###
+
+Theme developers will be familiar with this pattern of providing settings to a function in WordPress. Below is an example of setting some common options, and providing some post-type specific overrides:
+
+```php
+<?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(array(
+	'prefix' => 'You are here: ',
+	'last_link'  => true,
+	'separator'  => '|',
+	'post_types' => array(
+		'gizmo' => array(
+			'last_show'          => false,
+			'taxonomy_preferred' => 'category'
+		),
+		'whatzit' => array(
+			'separator' => '&raquo;'
+		)
+	)
+)); } ?>
+```
+
+The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, The separator has been overriden to show `&raquo;` (&raquo;) instead.
 
 ### Debug ###
 
