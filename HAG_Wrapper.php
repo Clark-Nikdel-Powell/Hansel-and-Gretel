@@ -50,7 +50,8 @@ final class HAG_Wrapper {
 	public function display($open_tag = true) {
 		$element = HAG_Utils::sanitize_element($this->options['wrapper_element']);
 		
-		if (empty($element)) return '';
+		if (empty($element) && $open_tag) return $this->options['prefix'];
+		if (empty($element) && !$open_tag) return $this->options['suffix'];
 		if (!$open_tag) return sprintf('%s</%s>', $this->options['suffix'], $element);
 		
 		$class = HAG_Utils::sanitize_class($this->options['wrapper_class']);
