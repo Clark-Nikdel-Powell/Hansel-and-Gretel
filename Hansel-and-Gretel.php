@@ -1,4 +1,4 @@
-<? 
+<?php 
 /*
 Plugin Name: Hansel & Gretel
 Plugin URI: https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel
