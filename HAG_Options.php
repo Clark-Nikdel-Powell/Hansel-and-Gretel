@@ -150,10 +150,16 @@ final class HAG_Options {
 		'post_type_show' => true,
 		
 		/**
+		 * Whether or not taxonomy breadcrumbs should be included for the current
+		 * location. This is only applicable on single, non-archive pages for
+		 * non-hierarchical post types (eg, posts).
+		 */
+		'taxonomy_show' => true,
+		
+		/**
 		 * Whether or not to show the ancestors of a hierarchical taxonomy if a
 		 * child term is assigned. Will only be applicable on posts that have
 		 * assigned hierarchical taxonomies.
-		 *
 		 */
 		'taxonomy_ancestors_show' => true,
 		
@@ -162,10 +168,22 @@ final class HAG_Options {
 		 * associated with the post if multiple are assigned. Choosing a preferred
 		 * taxonomy will attempt to choose the assigned taxonomy before falling back
 		 * to the default method. Will only be applicable on posts that have
-		 * assigned hierarchical taxonomies.
-		 *
+		 * assigned taxonomies.
 		 */ 
 		'taxonomy_preferred' => '',
+		
+		/**
+		 * An array of taxonomies that should be excluded from the breadcrumbs. Will
+		 * only be applicable on non-archive posts that have assigned taxonomies.
+		 */
+		'excluded_taxonomies' => array(),
+		
+		/**
+		 * An associative array of {taxonomy} => array() including the term slugs of
+		 * that taxonomy that should not be included in the breadcrumbs (except on a
+		 * taxonomy archive page)
+		 */
+		'taxonomy_excluded_terms' => array(),
 		
 		/**
 		 * Whether or not to show the last crumb (the current location) in the

@@ -612,7 +612,7 @@ final class HAG_Crumb {
 				);
 			}
 			
-		} elseif ($options['taxonomy_ancestors_show']) {
+		} elseif ($options['taxonomy_show']) {
 		
 			$tax_names = get_object_taxonomies($post);
 			$taxes = get_object_taxonomies($post, OBJECT);
@@ -623,22 +623,23 @@ final class HAG_Crumb {
 			if (in_array($options['taxonomy_preferred'], $tax_names)) {
 				$tax_name = $options['taxonomy_preferred'];
 				$tax = array_key_exists($tax_name, $taxes) ? $taxes[$tax_name] : null;
-				if (!is_null($tax)) $terms = wp_get_object_terms($post->ID, $tax_name, $term_args);
+				if (!is_null($tax)) $terms = HAG_Utils::get_filtered_object_terms($post->ID, $tax_name, $term_args, $options);
 				if (count($terms) > 0) $term = $terms[0];
 			}
 			
-			//get hierarchical taxonomy term if it exists
+			//else, get hierarchical taxonomy term if it exists
 			if (is_null($term)) {
 				$hier_taxes = array();
 				foreach($taxes as $t) if ($t->hierarchical) $hier_taxes[] = $t->name;
-				$hier_terms = wp_get_object_terms($post->ID, $hier_taxes, $term_args);
+				$hier_terms = HAG_Utils::get_filtered_object_terms($post->ID, $hier_taxes, $term_args, $options);
 				if (!is_wp_error($hier_terms) && count($hier_terms) > 0) $term = $hier_terms[0];
 			}
 			
+			//else, get non-hierarchical taxonomy term if it exists
 			if (is_null($term)) {
 				$unhier_taxes = array();
 				foreach($taxes as $t) if (!$t->hierarchical) $unhier_taxes[] = $t->name;
-				$unhier_terms = wp_get_object_terms($post->ID, $unhier_taxes, $term_args);
+				$unhier_terms = HAG_Utils::get_filtered_object_terms($post->ID, $unhier_taxes, $term_args, $options);
 				if (!is_wp_error($unhier_terms) && count($unhier_terms) > 0) $term = $unhier_terms[0];
 			}
 			
@@ -652,7 +653,7 @@ final class HAG_Crumb {
 						false
 					);
 					$term = get_term($term->parent, $term->taxonomy);
-				} while (!is_wp_error($term));
+				} while (!is_wp_error($term) && $options['taxonomy_ancestors_show']);
 			}
 			
 		}

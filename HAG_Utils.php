@@ -118,6 +118,34 @@ final class HAG_Utils {
 		return get_post($id);
 	}
 	
+	/**
+	 * Gets the terms associated with a post object and filters out any excluded terms set in the options.
+	 * 
+	 * @access public
+	 * @static
+	 * @param int $post_id
+	 * @param mixed $taxonomies
+	 * @param array $term_args
+	 * @param array $options
+	 * @return array the filtered term objects
+	 */
+	public static function get_filtered_object_terms($post_id, $taxonomies, array $term_args, array $options) {
+		$terms = wp_get_object_terms($post_id, $taxonomies, $term_args);
+		$exc_taxes = $options['excluded_taxonomies'];
+		$exc_terms = $options['taxonomy_excluded_terms'];
+		$output = array();
+		foreach ($terms as $term) {
+			$tax = $term->taxonomy;
+			if (is_array($exc_taxes) && in_array($tax, $exc_taxes)) continue;
+			if (is_array($exc_terms) && array_key_exists($tax, $exc_terms)) {
+				$exc = $exc_terms[$tax];
+				if (is_array($exc) && in_array($term->slug, $exc)) continue;
+				elseif ($exc === $term->slug) continue;
+			}
+			$output[] = $term;
+		}
+		return $output;
+	}
 	
 	/**
 	 * Print debug information regarding the current state of the page to the screen.

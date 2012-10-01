@@ -118,6 +118,12 @@ Theme developers will be familiar with this pattern of providing settings to a f
   'prefix'     => 'You are here: ',
   'last_link'  => true,
   'separator'  => '|',
+  'excluded_taxonomies' => array(
+  	'post_format'
+  ),
+  'taxonomy_excluded_terms' => array(
+  	'category' => array('uncategorized)
+  ),
   'post_types' => array(
     'gizmo' => array(
       'last_show'          => false,
@@ -130,7 +136,7 @@ Theme developers will be familiar with this pattern of providing settings to a f
 )); } ?>
 ```
 
-The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, the separator has been overriden to show `&raquo;` (&raquo;) instead.
+The above example sets the prefix for the breadcrumbs to `You are here: `, adds the link to the last crumb, and changes the separator to the pipe (`|`). Also, the theme-generated `post_format` taxonomy is excluded from the breadcrumbs, and the term `uncategorized (Uncategorized)` is never displayed on a post page. When on a `gizmo` post-type page, the last crumb is set not to show and the taxonomy crumbs will be categories. Likewise, on a `whatzit` post-type page, the separator has been overriden to show `&raquo;` (&raquo;) instead.
 
 ### Debug Options ###
 
@@ -214,6 +220,10 @@ The ID applied to the root crumb if it is included. May be left blank for no ID 
 
 ### Taxonomy Options ###
 
+#### `taxonomy_show (bool | Default: true | Version: 0.0.4+)` ####
+
+Whether or not taxonomy breadcrumbs should be included for the current location. This is only applicable on singular, non-archive pages for non-hierarchical post types (e.g., posts).
+
 #### `taxonomy_ancestors_show (bool | Default: true)` ####
 
 Whether or not to show the ancestors of a hierarchical term in a taxonomic archive. For a singular post page, whether or not to include taxonomic crumbs in the breadcrumbs.
@@ -221,6 +231,14 @@ Whether or not to show the ancestors of a hierarchical term in a taxonomic archi
 #### `taxonomy_preferred (string | Default: '')` ####
 
 By default, the breadcrumbs will choose the most popular taxonomy associated with the post if multiple are assigned. Choosing a preferred taxonomy will attempt to choose the assigned taxonomy before falling back to the default method. Will only be applicable on posts that have assigned taxonomies.
+
+#### `excluded_taxonomies (array | Default: array() | Version: 0.0.4+)` ####
+
+An array of taxonomies (names/slugs) that should be excluded from the breadcrumbs. Will only be applicable on singular, non-archive pages for non-hierarchical post types.
+
+#### `taxonomy_excluded_terms (array | Default: array() | Version: 0.0.4+)` ####
+
+An associative array of `'{taxonomy-name}' => array(...)` including the term slugs of that taxonoomy that should not be included in the breadcrumbs. This is only applicable on singular, non-archive pages for non-hierarchical post types. See the [above example](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#using-the-function-set-options) for usage.
 
 ### The Last Crumb Options ###
 
@@ -269,8 +287,18 @@ An associative array of `'{post-type}' => array(...)` including the same options
 ### Release History ###
 
 + [X.X.X](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _The Bleeding Edge..._
-+ [0.0.3](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/9d187e7544a8f5b47425f549ddf72e0014c5ecbd) _August 2, 2012,_ First stable version release
+
++ [0.0.4](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _October 1, 2012,_ Ability to control and limit which (if any) taxonomies are shown for non-hierarchical post types.
+  - Ability to show or hide taxonomy terms on singular non-hierarchical post pages
+  - Ability to exclude certain taxonomies from the breadcrumbs
+  - Ability to exclude specific terms from the breadcrumbs
+  - Can now hide parent terms for taxonomy crumbs on singular post pages
+  - Other small bug/formatting fixes...
+  
++ [0.0.3](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/9d187e7544a8f5b47425f549ddf72e0014c5ecbd) _August 2, 2012,_ First stable version release.
+
 + [0.0.2](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/81dfcac5bce720e345d212ff07034d8b3bd94e19) _July 31, 2012,_ Refactored to split out Crumb and Wrapper logic into separate classes.
+
 + [0.0.1](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/b9a664fca0b786aae84cb0f94297fd207aba4bfb) _July 27, 2012,_ Finished basic breadcrumb generation.
 
 ### Upcoming Features ###
@@ -285,8 +313,9 @@ We'd love to see anything you've got that will improve Hansel & Gretel. Remember
 
 ## Many Thanks! ##
 
-__Preliminary Development & Review:__ [Taylor Gorman](https://github.com/taylorgorman)  
 __Plugin Development & Testing:__ [Chris Roche](https://github.com/rodaine)  
+__Plugin Development & Testing:__ [Glenn Welser](https://github.com/gwelser)  
+__Preliminary Development & Review:__ [Taylor Gorman](https://github.com/taylorgorman)  
 __SEO Consultation:__ [Seth Wilson](http://nikdel.com/)  
 
 ## License ##
