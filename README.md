@@ -122,7 +122,7 @@ Theme developers will be familiar with this pattern of providing settings to a f
   	'post_format'
   ),
   'taxonomy_excluded_terms' => array(
-  	'category' => array('uncategorized)
+  	'category' => array('uncategorized')
   ),
   'post_types' => array(
     'gizmo' => array(
@@ -238,7 +238,7 @@ An array of taxonomies (names/slugs) that should be excluded from the breadcrumb
 
 #### `taxonomy_excluded_terms (array | Default: array() | Version: 0.0.4+)` ####
 
-An associative array of `'{taxonomy-name}' => array(...)` including the term slugs of that taxonoomy that should not be included in the breadcrumbs. This is only applicable on singular, non-archive pages for non-hierarchical post types. See the [above example](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#using-the-function-set-options) for usage.
+An associative array of `'{taxonomy-name}' => array(...)` including the term slugs of that taxonomy that should not be included in the breadcrumbs. This is only applicable on singular, non-archive pages for non-hierarchical post types. See the [above example](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#using-the-function-set-options) for usage.
 
 ### The Last Crumb Options ###
 
