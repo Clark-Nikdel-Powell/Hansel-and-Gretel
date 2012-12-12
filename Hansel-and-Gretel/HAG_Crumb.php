@@ -615,7 +615,7 @@ final class HAG_Crumb {
 		} elseif ($options['taxonomy_show']) {
 		
 			$tax_names = get_object_taxonomies($post);
-			$taxes = get_object_taxonomies($post, OBJECT);
+			$taxes = get_object_taxonomies($post->post_type, OBJECT);
 			$term_args = array('orderby' => 'count', 'order' => 'DESC');			
 			$term = null;
 
