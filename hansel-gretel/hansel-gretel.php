@@ -5,7 +5,7 @@ Plugin URI: https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel
 Description: Adds fine-tuned breadcrumb generation to your Wordpress Site, including custom structure, markup, and microdata.
 Author: Chris Roche & Taylor Gorman [Clark Nikdel Powell]
 Author URI: http://clarknikdelpowell.com/
-Version: 0.0.4
+Version: 0.0.5
 License: GPL2
 
 Copyright 2012  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
