@@ -33,10 +33,10 @@ It might be obvious (considering the previous section) that this plugin seeks to
 _The following features are currently available unless otherwise specifed._
 
 + __Simple Installation__  
-Upload the plugin, activate via the WordPress admin, and drop the function where you want the breadcrumbs to appear in your template. Done! [Read on](#installation) for the juicy details.
+Upload the plugin, activate via the WordPress admin, and drop the function where you want the breadcrumbs to appear in your template. Done! [Read on](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#installation) for the juicy details.
 
 + __Fine-Tuned Control__  
-H&G works right out of the box, but oftentimes we want custom control. Nearly every aspect of the breadcrumbs rendering can be changed a'la the [myriad of options](#options) available, either at the function call or via the provided admin menu (coming soon).
+H&G works right out of the box, but oftentimes we want custom control. Nearly every aspect of the breadcrumbs rendering can be changed a'la the [myriad of options](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#options) available, either at the function call or via the provided admin menu (coming soon).
 
 + __Microdata Integration__  
 H&G by default includes the microdata format for a [WebPage's breadcrumbs](http://schema.org/WebPage), a format that is jointly supported by [Bing](http://www.bing.com/community/site_blogs/b/search/archive/2011/06/02/bing-google-and-yahoo-unite-to-build-the-web-of-objects.aspx), [Google](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=1211158), [Yahoo!](http://developer.yahoo.com/blogs/ydn/posts/2011/06/introducing-schema-org-a-collaboration-on-structured-data/) and [Yandex](http://help.yandex.ru/webmaster/?id=1122752).
@@ -75,7 +75,7 @@ If you find it non-operational on your particular flavor of WP, please let us kn
     * Use the Plugin Manager via the WordPress admin to install the plugin (via Add New). Search for "Hansel & Gretel" and click install on this plugin.
     * Download the [stable zip archive](http://downloads.wordpress.org/plugin/hansel-gretel.zip) from the WordPress Plugin Repository and extract the contents.
     * Download the [bleeding-edge zip archive](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/zipball/master) from GitHub and extract the contents.
-    * Clone the [GitHub Repository] to your local machine (or even your remote server on some hosting providers!) and always have an up-to-date version available to you.
+    * Clone the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) to your local machine (or even your remote server on some hosting providers!) and always have an up-to-date version available to you.
 
 2. If you didn't use the Plugin Manager to install H&G, upload the `hansel-gretel` folder to your plugins directory (`/wp-content/plugins/hansel-gretel/`).
 
@@ -292,6 +292,11 @@ An associative array of `'{post-type}' => array(...)` including the same options
 
 + [X.X.X](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) _The Bleeding Edge..._
 
++ [0.0.5](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/v0.0.5) _January 4, 2013,_ Updates for WP 3.5 and some minor fixes:
+
+  - Errors related to 'attachment' post type objects & the `get_object_taxonomies()` corrected
+  - Addition of WordPress Repository Plugin files for posterity/convenience
+
 + [0.0.4](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/v0.0.4) _October 1, 2012,_ Ability to control and limit which (if any) taxonomies are shown for non-hierarchical post types.
 
   - Ability to show or hide taxonomy terms on singular non-hierarchical post pages
@@ -326,7 +331,7 @@ __SEO Consultation:__ [Seth Wilson](http://nikdel.com/)
 ## License ##
 
 ```
-Copyright 2012  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
+Copyright 2012-2013  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
