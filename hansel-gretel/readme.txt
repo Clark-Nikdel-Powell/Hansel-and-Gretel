@@ -2,7 +2,7 @@
 Contributors: rodaine, taylor_CNP
 Tags: breadcrumbs, breadcrumb, crumb, microdata, hierarchy, simple
 Requires at least: 3.1.0
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -77,24 +77,27 @@ _Installing Hansel & Gretel is easy-peasy, but of course there's a bit of admini
 ### Requirements & Compatibility ###
 
 __Minimum (theoretical) Wordpress Version Required:__ 3.1.0  
-__Actually Tested Versions__ 3.3.2, 3.4.1, 3.4.2
+__Actually Tested Versions__ 3.3.2, 3.4.X, 3.5
 
 If you find it non-operational on your particular flavor of WP, please let us know. 
 
 ### Instructions ###
 
-1. Download the zip file (above) and extract the contents. Alternatively, get the latest version from the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel)
+0. Make sure WordPress 3.1.0 or better is running on your site. It will not work with older versions.
 
-2. Make sure you're running Wordpress 3.1.0 or better. It won't work with older versions.
+1. Get the plugin onto your site, in one of many ways:
+    * Use the Plugin Manager via the WordPress admin to install the plugin (via Add New). Search for "Hansel & Gretel" and click install on this plugin.
+    * Download the [stable zip archive](http://downloads.wordpress.org/plugin/hansel-gretel.zip) from the WordPress Plugin Repository and extract the contents.
+    * Download the [bleeding-edge zip archive](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/zipball/master) from GitHub and extract the contents.
+    * Clone the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) to your local machine (or even your remote server on some hosting providers!) and always have an up-to-date version available to you.
 
-3. Upload the `hansel-gretel` folder to your plugins directory (`/wp-content/plugins/hansel-gretel`).
+2. If you didn't use the Plugin Manager to install H&G, upload the `hansel-gretel` folder to your plugins directory (`/wp-content/plugins/hansel-gretel/`).
 
-4. Activate the plugin through the Plugins page on the WordPress admin.
+3. Activate the plugin through the Plugins page on the WordPress admin.
 
-5. Add the following snippet to your theme file(s) outside [The Loop](http://codex.wordpress.org/the_loop) where you want the breadcrumbs to appear:  
-`<?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(); } ?>`
+4. Add the following snippet to your theme file(s) outside [The Loop](http://codex.wordpress.org/the_loop) where you want the breadcrumbs to appear: `<?php if (function_exists('HAG_Breadcrumbs')) { HAG_Breadcrumbs(); } ?>`
  
-6. Profit! For further customization options, please refer to the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) for the full documentation.
+6. **Profit!**
 
 == Frequently Asked Questions ==
 
@@ -109,8 +112,8 @@ Checkout the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-a
 
 == Changelog ==
 
-Checkout the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) for the full changelog!
+Checkout the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#development) for the full changelog!
 
 == Upgrade Notice ==
 
-Checkout the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel) for any upgrade notices!
+Checkout the [GitHub Repository](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel#development) for any upgrade notices!
