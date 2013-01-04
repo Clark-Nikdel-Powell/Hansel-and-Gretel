@@ -295,6 +295,7 @@ An associative array of `'{post-type}' => array(...)` including the same options
 + [0.0.5](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/v0.0.5) _January 4, 2013,_ Updates for WP 3.5 and some minor fixes:
 
   - Errors related to 'attachment' post type objects & the `get_object_taxonomies()` corrected
+  - Excluded custom blog home page crumb for search results and 404 pages
   - Addition of WordPress Repository Plugin files for posterity/convenience
 
 + [0.0.4](https://github.com/Clark-Nikdel-Powell/Hansel-and-Gretel/tree/v0.0.4) _October 1, 2012,_ Ability to control and limit which (if any) taxonomies are shown for non-hierarchical post types.
