@@ -250,6 +250,9 @@ final class HAG_Crumb {
 		elseif (is_comments_popup())
 			return array_merge($crumbs, self::get_comment_popup_crumbs($options));
 		
+		elseif (is_attachment())
+			return $crumbs;
+
 		elseif (is_singular())
 			return array_merge($crumbs, self::get_singular_crumbs($options));
 		
