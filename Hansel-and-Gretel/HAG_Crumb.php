@@ -315,6 +315,7 @@ final class HAG_Crumb {
 		//break out if we aren't looking deeper
 		if ($fp || !$cbh) return $crumbs;
 		if (!$bh && !is_null($post) && 'post' !== $post->post_type) return $crumbs;
+		if (is_search() || is_404()) return $crumbs;
 
 		//load in the custom blog page crumb
 		$blog = HAG_Utils::get_blog_home();
