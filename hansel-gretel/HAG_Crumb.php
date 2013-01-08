@@ -471,7 +471,7 @@ final class HAG_Crumb {
 		$crumbs = array();
 		if (!$options['last_show'] || !$options['post_type_show']) return $crumbs;
 			
-		$pt = get_queried_object();
+		$pt = get_post_type_object(get_query_var('post_type'));
 		if (is_null($pt) || is_wp_error($pt) || !$pt->has_archive) return $crumbs;
 		
 		$crumbs[] = new HAG_Crumb(
