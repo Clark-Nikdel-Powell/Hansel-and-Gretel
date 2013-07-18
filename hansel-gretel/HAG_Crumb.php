@@ -596,7 +596,7 @@ final class HAG_Crumb {
 		if ($options['last_show']) {
 			$rev_crumbs[] = new HAG_Crumb(
 				$options,
-				$post->post_title,
+				get_the_title($post->ID),
 				get_permalink($post->ID),
 				false,
 				true
