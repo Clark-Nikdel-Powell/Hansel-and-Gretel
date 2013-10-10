@@ -6,7 +6,7 @@ Description: Adds fine-tuned breadcrumb generation to your Wordpress Site, inclu
 Author: Chris Roche & Taylor Gorman [Clark Nikdel Powell]
 Author URI: http://clarknikdelpowell.com/
 Version: 0.0.5
-License: GPL2
+License: GPLv2 or later
 
 Copyright 2012  Clark Nikdel Powell  (email : wordpress@clarknikdelpowell.com)
 
