@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-0": { 
+			"HAG\\": "src/"
+		}
+	},
+	"config": {
+		"bin-dir": "bin/"
+	}
+}
