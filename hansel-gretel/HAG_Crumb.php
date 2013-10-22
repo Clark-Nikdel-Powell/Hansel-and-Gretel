@@ -397,7 +397,7 @@ final class HAG_Crumb {
 	 */
 	private static function get_date_archive_crumbs(array $options) {
 		$crumbs = array();
-		$date = new DateTime(get_the_date());
+		$date = new DateTime(get_the_date('c'));
 		$last_show = $options['last_show'];
 		
 		if (is_year() && !$last_show) return $crumbs;
