@@ -4,54 +4,54 @@ require_once plugin_dir_path(__FILE__).'HAG_Utils.php';
 
 /**
  * Describes a single crumb in the breadcrumbs chain.
- * 
+ *
  * @final
  */
 final class HAG_Crumb {
-	
+
 	/**
 	 * The options applied to this crumb.
-	 * 
+	 *
 	 * @var array
 	 * @access private
 	 */
 	private $options;
-	
+
 	/**
 	 * The label for this crumb.
-	 * 
+	 *
 	 * @var string
 	 * @access private
 	 */
 	private $label;
-	
+
 	/**
 	 * The link url for this crumb.
-	 * 
+	 *
 	 * @var string
 	 * @access private
 	 */
 	private $url;
-	
+
 	/**
 	 * Whether or not this crumb is a home crumb.
-	 * 
+	 *
 	 * @var bool
 	 * @access private
 	 */
 	private $is_home;
-	
+
 	/**
 	 * Whether or not this crumb is the last (current) crumb.
-	 * 
+	 *
 	 * @var bool
 	 * @access private
 	 */
 	private $is_last;
-	
+
 	/**
 	 * Creates an instance of a crumb.
-	 * 
+	 *
 	 * @access private
 	 * @param array $options
 	 * @param string $label
@@ -67,23 +67,23 @@ final class HAG_Crumb {
 		$this->is_home = (bool)$is_home;
 		$this->is_last = (bool)$is_last;
 	}
-	
+
 	/**
 	 * Read-Only Access to Crumb properties.
-	 * 
+	 *
 	 * @access public
 	 * @param string $name
 	 * @return mixed
 	 */
 	public function __get($name) { return $this->$name; }
-	
+
 	///////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////ELEMENT, LINK, CLASS & ID UTILITIES
 	///////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Gets the crumb's wrapper element name.
-	 * 
+	 *
 	 * @access private
 	 * @return string
 	 */
@@ -93,7 +93,7 @@ final class HAG_Crumb {
 
 	/**
 	 * Gets the crumb's id.
-	 * 
+	 *
 	 * @access private
 	 * @return string
 	 */
@@ -102,11 +102,11 @@ final class HAG_Crumb {
 		if ($this->is_home) $id = $this->options['home_id'];
 		if ($this->is_last) $id = $this->options['last_id'];
 		return HAG_Utils::sanitize_id($id);
-	}	
-	
+	}
+
 	/**
 	 * Gets the crumb's class(es).
-	 * 
+	 *
 	 * @access private
 	 * @return string
 	 */
@@ -120,7 +120,7 @@ final class HAG_Crumb {
 
 	/**
 	 * Whether or not the crumb should be linked.
-	 * 
+	 *
 	 * @access private
 	 * @return bool
 	 */
@@ -130,72 +130,72 @@ final class HAG_Crumb {
 		if ($this->is_last) $link = $this->options['last_link'];
 		return (bool)$link;
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////STRING GENERATION
 	///////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Gets the crumb's wrapper if it exists.
-	 * 
+	 *
 	 * @access private
 	 * @param bool $open_tag (default: true) Whether or not to return the open or close tag
 	 * @return string
 	 */
 	private function get_wrapper($open_tag = true) {
 		$element = $this->get_element();
-		
+
 		if (empty($element)) return '';
 		if (!$open_tag) return sprintf('</%s>', $element);
-		
+
 		$class = $this->get_class();
 		$id = $this->get_id();
-		
+
 		$wrapper = array();
 		$wrapper[] = sprintf('<%s', $element);
-		
+
 		if (!empty($id)) $wrapper[] = sprintf('id="%s"', $id);
 		if (!empty($class)) $wrapper[] = sprintf('class="%s"', $class);
-		
+
 		$wrapper[] = '>';
-		
+
 		return implode(' ', $wrapper);
 	}
-	
+
 	/**
 	 * Gets the crumb's link if it exists.
-	 * 
+	 *
 	 * @access private
 	 * @param bool $open_tag (default: true) Whether or not to return the open or close tag
 	 * @return string
 	 */
 	private function get_link($open_tag = true) {
 		$link = $this->has_link();
-		
+
 		if (!$link || empty($this->url)) return '';
 		if (!$open_tag) return '</a>';
-		
+
 		$element = $this->get_element();
 		$class = HAG_Utils::sanitize_class($this->get_class().' '.$this->options['link_class']);
 		$id = $this->get_id();
-		
+
 		$link = array();
 		$link[] = sprintf('<a href="%s"', $this->url);
-		
+
 		if (empty($element) && !empty($id))
 			$link[] = sprintf('id="%s"', $id);
-			
+
 		if (empty($element) && !empty($class))
 			$link[] = sprintf('class="%s"', $class);
-			
+
 		$link[] = '>';
-		
+
 		return implode(' ', $link);
 	}
-	
+
 	/**
 	 * Builds the crumb html markup when converted to string.
-	 * 
+	 *
 	 * @access public
 	 * @return string
 	 */
@@ -206,35 +206,35 @@ final class HAG_Crumb {
 		$output[] = trim($this->label);
 		$output[] = $this->get_link(false);
 		$output[] = $this->get_wrapper(false);
-		return implode('', $output);	
+		return implode('', $output);
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////CRUMB PROCURMENT
 	///////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Gets all the crumbs for the current page. Uses the template hierarchy and the
 	 * provided options to determine which crumbs to return.
-	 * 
+	 *
 	 * @access public
 	 * @static
 	 * @param array $options
 	 * @return array
 	 */
 	public static function get_crumbs(array $options) {
-		
+
 		$crumbs = self::get_home_crumbs($options);
 
 		if (is_front_page() || is_home())
 			return $crumbs;
-		
-		elseif (is_404()) 
+
+		elseif (is_404())
 			return array_merge($crumbs, self::get_404_crumbs($options));
-			
+
 		elseif (is_search())
 			return array_merge($crumbs, self::get_search_crumbs($options));
-			
+
 		elseif (is_date())
 			return array_merge($crumbs, self::get_date_archive_crumbs($options));
 
@@ -243,28 +243,28 @@ final class HAG_Crumb {
 
 		elseif (is_post_type_archive())
 			return array_merge($crumbs, self::get_post_type_crumbs($options));
-				
+
 		elseif (is_category() || is_tag() || is_tax())
-			return array_merge($crumbs, self::get_taxonomy_crumbs($options));	
+			return array_merge($crumbs, self::get_taxonomy_crumbs($options));
 
 		elseif (is_comments_popup())
 			return array_merge($crumbs, self::get_comment_popup_crumbs($options));
-		
+
 		elseif (is_attachment())
 			return $crumbs;
 
 		elseif (is_singular())
 			return array_merge($crumbs, self::get_singular_crumbs($options));
-		
+
 		else
 			return $crumbs;
 	}
-	
+
 	/**
 	 * Gets the home/front-page crumbs. These are dependent on whether or not custom
 	 * front-page and blog home-page templates are specified in the Wordpress Admin
 	 * under Settings > Reading > Front page displays.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -279,9 +279,9 @@ final class HAG_Crumb {
 		$bh = is_home();
 		$cfp = HAG_Utils::has_front_page();
 		$cbh = HAG_Utils::has_blog_home();
-	
+
 		//probably a contradiction
-		if ($fp && $bh && $cbh) { 
+		if ($fp && $bh && $cbh) {
 			$blog = HAG_Utils::get_blog_home();
 			return array(new HAG_Crumb(
 				$options,
@@ -293,7 +293,7 @@ final class HAG_Crumb {
 		}
 
 		//use custom front page or fall back to the settings
-		if ($cfp) { 
+		if ($cfp) {
 			$front = HAG_Utils::get_front_page();
 			$crumbs[] = new HAG_Crumb(
 				$options,
@@ -309,7 +309,7 @@ final class HAG_Crumb {
 				site_url(),
 				true,
 				$fp || ($bh && !$cbh)
-			);	
+			);
 		}
 
 		//break out if we aren't looking deeper
@@ -326,22 +326,22 @@ final class HAG_Crumb {
 			false,
 			$bh
 		);
-		
+
 		return $crumbs;
 	}
-	
+
 	/**
 	 * Gets the 404 Page Not Found crumb.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
 	 * @return array
 	 */
 	private static function get_404_crumbs(array $options) {
-	
+
 		$crumbs = array();
-			
+
 		if ($options['last_show'])
 			$crumbs[] = new HAG_Crumb(
 				$options,
@@ -350,13 +350,13 @@ final class HAG_Crumb {
 				false,
 				true
 			);
-			
+
 		return $crumbs;
 	}
-	
+
 	/**
 	 * Gets the Search Query crumb.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -373,9 +373,9 @@ final class HAG_Crumb {
 			false,
 			!$options['search_query']
 		);
-		
+
 		if (!$options['search_query']) return $crumbs;
-	
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			get_search_query(),
@@ -386,10 +386,10 @@ final class HAG_Crumb {
 
 		return $crumbs;
 	}
-		
+
 	/**
 	 * Gets the crumbs for a date-based archive.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -399,9 +399,9 @@ final class HAG_Crumb {
 		$crumbs = array();
 		$date = new DateTime(get_the_date('c'));
 		$last_show = $options['last_show'];
-		
+
 		if (is_year() && !$last_show) return $crumbs;
-		
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			$date->format('Y'),
@@ -409,9 +409,9 @@ final class HAG_Crumb {
 			false,
 			is_year()
 		);
-		
+
 		if (is_year() || (is_month() && !$last_show)) return $crumbs;
-		
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			$date->format('F'),
@@ -419,9 +419,9 @@ final class HAG_Crumb {
 			false,
 			is_month()
 		);
-		
+
 		if (is_month() || (is_day() && !$last_show)) return $crumbs;
-		
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			$date->format('jS'),
@@ -429,13 +429,13 @@ final class HAG_Crumb {
 			false,
 			is_day()
 		);
-		
+
 		return $crumbs;
 	}
 
 	/**
 	 * Gets the crumbs for an author-based archive.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -444,10 +444,10 @@ final class HAG_Crumb {
 	private static function get_author_crumbs(array $options) {
 		$crumbs = array();
 		if (!$options['last_show']) return $crumbs;
-		
+
 		$author = get_queried_object();
 		if (is_null($author) || is_wp_error($author)) return $crumbs;
-		
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			$author->display_name,
@@ -455,13 +455,13 @@ final class HAG_Crumb {
 			false,
 			true
 		);
-		
+
 		return $crumbs;
 	}
-	
+
 	/**
 	 * Gets the crumbs for a post-type archive.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -470,10 +470,10 @@ final class HAG_Crumb {
 	private static function get_post_type_crumbs(array $options) {
 		$crumbs = array();
 		if (!$options['last_show'] || !$options['post_type_show']) return $crumbs;
-			
+
 		$pt = get_queried_object();
 		if (is_null($pt) || is_wp_error($pt) || !$pt->has_archive) return $crumbs;
-		
+
 		$crumbs[] = new HAG_Crumb(
 			$options,
 			$pt->label,
@@ -484,10 +484,10 @@ final class HAG_Crumb {
 
 		return $crumbs;
 	}
-	
+
 	/**
 	 * Gets the crumbs for a taxonomy archive.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -495,19 +495,19 @@ final class HAG_Crumb {
 	 */
 	private static function get_taxonomy_crumbs(array $options) {
 		$crumbs = array();
-		
+
 		$term = get_queried_object();
 		if (is_null($term) || is_wp_error($term)) return $crumbs;
-		
+
 		$tax = get_taxonomy($term->taxonomy);
 		if (is_null($tax) || is_wp_error($tax)) return $crumbs;
-		
+
 		$pt = get_post_type_object($tax->object_type[0]);
-		
+
 		//add post type crumb if this taxonomy is exclusive to it
-		if (1 === count($tax->object_type) 
-			&& !is_null($pt) 
-			&& !is_wp_error($pt) 
+		if (1 === count($tax->object_type)
+			&& !is_null($pt)
+			&& !is_wp_error($pt)
 			&& $pt->has_archive
 			&& $options['post_type_show']
 		) {
@@ -519,9 +519,9 @@ final class HAG_Crumb {
 				false
 			);
 		}
-		
+
 		$rev_crumbs = array();
-		
+
 		if ($options['last_show']) {
 			$rev_crumbs[] = new HAG_Crumb(
 				$options,
@@ -531,7 +531,7 @@ final class HAG_Crumb {
 				true
 			);
 		}
-		
+
 		if ($tax->hierarchical && $options['taxonomy_ancestors_show']) {
 			$term = get_term($term->parent, $term->taxonomy);
 			while (!is_wp_error($term)) {
@@ -545,15 +545,15 @@ final class HAG_Crumb {
 				$term = get_term($term->parent, $term->taxonomy);
 			}
 		}
-		
+
 		return array_merge($crumbs, array_reverse($rev_crumbs));
 	}
-	
+
 	/**
 	 * Gets the crumbs for a comment popup page. Pulls in the same
 	 * breadcrumbs that would be applied to the single page the
 	 * comments popup is for.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -562,10 +562,10 @@ final class HAG_Crumb {
 	private static function get_comment_popup_crumbs(array $options) {
 		return self::get_singular_crumbs($options);
 	}
-	
+
 	/**
 	 * Gets the crumbs for a single, non-archive post/page.
-	 * 
+	 *
 	 * @access private
 	 * @static
 	 * @param array $options
@@ -575,10 +575,10 @@ final class HAG_Crumb {
 		$post = get_queried_object();
 		if (is_null($post)) $post = $GLOBALS['post'];
 		$crumbs = array();
-		
+
 		$pt = get_post_type_object($post->post_type);
-		if (!is_null($pt) 
-			&& !is_wp_error($pt) 
+		if (!is_null($pt)
+			&& !is_wp_error($pt)
 			&& $pt->has_archive
 			&& $options['post_type_show']
 		) {
@@ -592,7 +592,7 @@ final class HAG_Crumb {
 		}
 
 		$rev_crumbs = array();
-		
+
 		if ($options['last_show']) {
 			$rev_crumbs[] = new HAG_Crumb(
 				$options,
@@ -602,9 +602,9 @@ final class HAG_Crumb {
 				true
 			);
 		}
-		
+
 		if (is_post_type_hierarchical($pt->name)) {
-			
+
 			foreach($post->ancestors as $aID) {
 				$ancestor = get_post($aID);
 				$rev_crumbs[] = new HAG_Crumb(
@@ -615,12 +615,12 @@ final class HAG_Crumb {
 					false
 				);
 			}
-			
+
 		} elseif ($options['taxonomy_show']) {
-		
+
 			$tax_names = get_object_taxonomies($post);
 			$taxes = get_object_taxonomies($post->post_type, OBJECT);
-			$term_args = array('orderby' => 'count', 'order' => 'DESC');			
+			$term_args = array('orderby' => 'count', 'order' => 'DESC');
 			$term = null;
 
 			//get preferred taxonomy term if it exists
@@ -630,7 +630,7 @@ final class HAG_Crumb {
 				if (!is_null($tax)) $terms = HAG_Utils::get_filtered_object_terms($post->ID, $tax_name, $term_args, $options);
 				if (count($terms) > 0) $term = $terms[0];
 			}
-			
+
 			//else, get hierarchical taxonomy term if it exists
 			if (is_null($term)) {
 				$hier_taxes = array();
@@ -638,7 +638,7 @@ final class HAG_Crumb {
 				$hier_terms = HAG_Utils::get_filtered_object_terms($post->ID, $hier_taxes, $term_args, $options);
 				if (!is_wp_error($hier_terms) && count($hier_terms) > 0) $term = $hier_terms[0];
 			}
-			
+
 			//else, get non-hierarchical taxonomy term if it exists
 			if (is_null($term)) {
 				$unhier_taxes = array();
@@ -646,7 +646,7 @@ final class HAG_Crumb {
 				$unhier_terms = HAG_Utils::get_filtered_object_terms($post->ID, $unhier_taxes, $term_args, $options);
 				if (!is_wp_error($unhier_terms) && count($unhier_terms) > 0) $term = $unhier_terms[0];
 			}
-			
+
 			if (!is_null($term)) {
 				do {
 					$rev_crumbs[] = new HAG_Crumb(
@@ -659,10 +659,10 @@ final class HAG_Crumb {
 					$term = get_term($term->parent, $term->taxonomy);
 				} while (!is_wp_error($term) && $options['taxonomy_ancestors_show']);
 			}
-			
+
 		}
-		
+
 		return array_merge($crumbs, array_reverse($rev_crumbs));
 	}
-	
+
 }
