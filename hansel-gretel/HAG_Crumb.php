@@ -154,12 +154,12 @@ final class HAG_Crumb {
 		$wrapper = array();
 		$wrapper[] = sprintf('<%s', $element);
 
-		if (!empty($id)) $wrapper[] = sprintf('id="%s"', $id);
-		if (!empty($class)) $wrapper[] = sprintf('class="%s"', $class);
+		if (!empty($id)) $wrapper[] = sprintf(' id="%s"', $id);
+		if (!empty($class)) $wrapper[] = sprintf(' class="%s"', $class);
 
 		$wrapper[] = '>';
 
-		return implode(' ', $wrapper);
+		return implode('', $wrapper);
 	}
 
 	/**
@@ -190,16 +190,16 @@ final class HAG_Crumb {
 
 		// Add id
 		if (empty($element) && !empty($id))
-			$link[] = sprintf('id="%s"', $id);
+			$link[] = sprintf(' id="%s"', $id);
 
 		// Add class
 		if (empty($element) && !empty($class))
-			$link[] = sprintf('class="%s"', $class);
+			$link[] = sprintf(' class="%s"', $class);
 
 		// End opening tag
 		$link[] = '>';
 
-		return implode(' ', $link);
+		return implode('', $link);
 	}
 
 	/**

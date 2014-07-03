@@ -123,7 +123,7 @@ final class HAG_Breadcrumbs {
 		$output = array();
 		$output[] = $wrapper->display(true);
 		$output[] = implode(
-			sprintf(' %s ', $options['separator']),
+			sprintf('%s', $options['separator']),
 			$crumbs
 		);
 		$output[] = $wrapper->display(false);
