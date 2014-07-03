@@ -170,24 +170,33 @@ final class HAG_Crumb {
 	 * @return string
 	 */
 	private function get_link($open_tag = true) {
-		$link = $this->has_link();
+		$has_link = $this->has_link();
 
-		if (!$link || empty($this->url)) return '';
+		// Closing tag
+		if (!$open_tag && (!$has_link || empty($this->url))) return '</span>';
 		if (!$open_tag) return '</a>';
 
+		// Get stuff
 		$element = $this->get_element();
 		$class = HAG_Utils::sanitize_class($this->get_class().' '.$this->options['link_class']);
 		$id = $this->get_id();
 
 		$link = array();
-		$link[] = sprintf('<a href="%s"', $this->url);
+		// Start opening tag
+		if (!$has_link || empty($this->url))
+			$link[] = '<span';
+		else
+			$link[] = sprintf('<a href="%s"', $this->url);
 
+		// Add id
 		if (empty($element) && !empty($id))
 			$link[] = sprintf('id="%s"', $id);
 
+		// Add class
 		if (empty($element) && !empty($class))
 			$link[] = sprintf('class="%s"', $class);
 
+		// End opening tag
 		$link[] = '>';
 
 		return implode(' ', $link);
