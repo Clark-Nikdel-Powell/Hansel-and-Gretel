@@ -194,7 +194,7 @@ The class(es) applied to the crumb element or crumb link if it exists. May be le
 
 #### `crumb_link (bool | Default: true)` ####
 
-Whether or not the crumbs should link to thier associated pages in the hierarchy.
+Whether or not the crumbs should link to their associated pages in the hierarchy.
 
 #### `link_class (string | Default: '')` ####
 
