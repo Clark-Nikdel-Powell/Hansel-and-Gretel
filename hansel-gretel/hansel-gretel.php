@@ -24,9 +24,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-require_once plugin_dir_path(__FILE__).'HAG_Options.php';
-require_once plugin_dir_path(__FILE__).'HAG_Wrapper.php';
-require_once plugin_dir_path(__FILE__).'HAG_Crumb.php';
+require_once plugin_dir_path( __FILE__ ) . 'HAG_Options.php';
+require_once plugin_dir_path( __FILE__ ) . 'HAG_Wrapper.php';
+require_once plugin_dir_path( __FILE__ ) . 'HAG_Crumb.php';
 
 /**
  * Wrapper around the breadcrumb functionality and WordPress administrative
@@ -42,7 +42,8 @@ final class HAG_Breadcrumbs {
 	 * @access private
 	 * @return void
 	 */
-	private function __construct() { }
+	private function __construct() {
+	}
 
 	/**
 	 * Private cloning function...you don't need an instance.
@@ -50,7 +51,8 @@ final class HAG_Breadcrumbs {
 	 * @access private
 	 * @return void
 	 */
-	private function __clone() { }
+	private function __clone() {
+	}
 
 	/**
 	 * Hook function for when the plugin is activated. Adds the default
@@ -61,7 +63,7 @@ final class HAG_Breadcrumbs {
 	 * @return void
 	 */
 	public static function activate() {
-		add_option(HAG_Options::option_name, array(), '', 'yes');
+		add_option( HAG_Options::option_name, array(), '', 'yes' );
 	}
 
 	/**
@@ -73,7 +75,7 @@ final class HAG_Breadcrumbs {
 	 * @return void
 	 */
 	public static function uninstall() {
-		delete_option(HAG_Options::option_name);
+		delete_option( HAG_Options::option_name );
 	}
 
 	/**
@@ -94,41 +96,51 @@ final class HAG_Breadcrumbs {
 	 *
 	 * @access public
 	 * @static
+	 *
 	 * @param array $options (default: null)
+	 *
 	 * @return void
 	 */
-	public static function display(array $options = null) {
+	public static function display( array $options = null ) {
 
 		/******************************************************** RESOLVE POST TYPE */
-		$post = get_queried_object();
+		$post      = get_queried_object();
 		$post_type = '';
-		if (is_single()) $post_type = $post->post_type;
-		elseif (is_post_type_archive()) $post_type = $post->name;
+		if ( is_single() ) {
+			$post_type = $post->post_type;
+		} elseif ( is_post_type_archive() ) {
+			$post_type = $post->name;
+		}
 
 		/***************************** LOAD AND RESOLVE OPTIONS FOR THE BREADCRUMBS */
-		if (!is_array($options)) $options = array();
-		$options = HAG_Options::get_options($options, $post_type);
+		if ( ! is_array( $options ) ) {
+			$options = array();
+		}
+		$options = HAG_Options::get_options( $options, $post_type );
 
 		/*************************************** PRINT DEBUG INFORMATION IF DESIRED */
-		if ($options['debug_show'])
-			HAG_Utils::debug_info($options, $options['debug_comment']);
+		if ( $options['debug_show'] ) {
+			HAG_Utils::debug_info( $options, $options['debug_comment'] );
+		}
 
 		/************************************* OBTAIN CRUMBS AND EXIT IF NONE FOUND */
-		$crumbs = HAG_Crumb::get_crumbs($options);
-		if (0 === count($crumbs)) return;
+		$crumbs = HAG_Crumb::get_crumbs( $options );
+		if ( 0 === count( $crumbs ) ) {
+			return;
+		}
 
 		/********************************************* BUILD OUTPUT BASED ON OPTIONS*/
-		$wrapper = new HAG_Wrapper($options);
+		$wrapper = new HAG_Wrapper( $options );
 
-		$output = array();
-		$output[] = $wrapper->display(true);
+		$output   = array();
+		$output[] = $wrapper->display( true );
 		$output[] = implode(
-			sprintf('%s', $options['separator']),
+			sprintf( '%s', $options['separator'] ),
 			$crumbs
 		);
-		$output[] = $wrapper->display(false);
+		$output[] = $wrapper->display( false );
 
-		echo implode('', $output);
+		echo implode( '', $output );
 	}
 
 }
@@ -139,14 +151,16 @@ final class HAG_Breadcrumbs {
  * and plugin defaults).
  *
  * @access public
+ *
  * @param array $options (default: null)
+ *
  * @return void
  */
-function HAG_Breadcrumbs(array $options = null) {
-	HAG_Breadcrumbs::display($options);
+function HAG_Breadcrumbs( array $options = null ) {
+	HAG_Breadcrumbs::display( $options );
 }
 
 // WordPress Admin Mumbo Jumbo
-register_activation_hook(__FILE__, array('HAG_Breadcrumbs', 'activate'));
-register_uninstall_hook(__FILE__, array('HAG_Breadcrumbs', 'uninstall'));
+register_activation_hook( __FILE__, array( 'HAG_Breadcrumbs', 'activate' ) );
+register_uninstall_hook( __FILE__, array( 'HAG_Breadcrumbs', 'uninstall' ) );
 HAG_Breadcrumbs::initialize();
