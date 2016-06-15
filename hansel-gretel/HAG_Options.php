@@ -214,6 +214,11 @@ final class HAG_Options {
 		'microdata'               => true,
 
 		/**
+		 * Whether or not to echo the code on completion
+		 */
+		'echo'                    => true,
+
+		/**
 		 * An associative array of {post-type} => array() including the same
 		 * setting names as the root options array as overrides for the keyed
 		 * post type. These post-type-specific settings override any defined

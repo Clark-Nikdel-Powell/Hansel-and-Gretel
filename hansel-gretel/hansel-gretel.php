@@ -99,13 +99,14 @@ final class HAG_Breadcrumbs {
 	 *
 	 * @param array $options (default: null)
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public static function display( array $options = null ) {
 
 		/******************************************************** RESOLVE POST TYPE */
 		$post      = get_queried_object();
 		$post_type = '';
+
 		if ( is_single() ) {
 			$post_type = $post->post_type;
 		} elseif ( is_post_type_archive() ) {
@@ -126,7 +127,7 @@ final class HAG_Breadcrumbs {
 		/************************************* OBTAIN CRUMBS AND EXIT IF NONE FOUND */
 		$crumbs = HAG_Crumb::get_crumbs( $options );
 		if ( 0 === count( $crumbs ) ) {
-			return;
+			return '';
 		}
 
 		/********************************************* BUILD OUTPUT BASED ON OPTIONS*/
@@ -140,7 +141,9 @@ final class HAG_Breadcrumbs {
 		);
 		$output[] = $wrapper->display( false );
 
-		echo implode( '', $output );
+		$final_output = implode( '', $output );
+
+		return $final_output;
 	}
 
 }
@@ -154,10 +157,16 @@ final class HAG_Breadcrumbs {
  *
  * @param array $options (default: null)
  *
- * @return void
+ * @return string
  */
 function HAG_Breadcrumbs( array $options = null ) {
-	HAG_Breadcrumbs::display( $options );
+	$output = HAG_Breadcrumbs::display( $options );
+
+	if ( isset($options['echo']) && true === $options['echo'] ) {
+		echo $output;
+	} else {
+		return $output;
+	}
 }
 
 // WordPress Admin Mumbo Jumbo
