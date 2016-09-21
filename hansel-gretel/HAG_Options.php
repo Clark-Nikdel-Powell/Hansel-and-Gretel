@@ -307,7 +307,7 @@ final class HAG_Options {
 		$fpt_options = array();
 		if ( array_key_exists( $pt_key, $options )
 		     && is_array( $options[ $pt_key ] )
-		     && array_key_exists( $post_type, $defaults[ $pt_key ] )
+		     && array_key_exists( $post_type, $options[ $pt_key ] )
 		     && is_array( $options[ $pt_key ][ $post_type ] )
 		) {
 			$fpt_options = $options[ $pt_key ][ $post_type ];
