@@ -133,17 +133,23 @@ final class HAG_Breadcrumbs {
 		/********************************************* BUILD OUTPUT BASED ON OPTIONS*/
 		$wrapper = new HAG_Wrapper( $options );
 
+		$as_array = 'array' === $options['return'];
+
 		$output   = array();
 		$output[] = $wrapper->display( true );
-		$output[] = implode(
-			sprintf( '%s', $options['separator'] ),
-			$crumbs
-		);
+		if(!$as_array) {
+			$output[] = implode(
+				sprintf( '%s', $options['separator'] ),
+				$crumbs
+			);
+		} else {
+			$output = array_merge($output, $crumbs);
+		}
 		$output[] = $wrapper->display( false );
 
 		$final_output = implode( '', $output );
 
-		return $final_output;
+		return ( $as_array ? $output : $final_output );
 	}
 
 }
@@ -162,7 +168,7 @@ final class HAG_Breadcrumbs {
 function HAG_Breadcrumbs( array $options = null ) {
 	$output = HAG_Breadcrumbs::display( $options );
 
-	if ( isset($options['echo']) && true === $options['echo'] ) {
+	if ( isset( $options['echo'] ) && true === $options['echo'] ) {
 		echo $output;
 	} else {
 		return $output;

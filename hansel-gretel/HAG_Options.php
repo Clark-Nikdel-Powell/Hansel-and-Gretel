@@ -219,6 +219,11 @@ final class HAG_Options {
 		'echo'                    => true,
 
 		/**
+		 * Object type to return as.  Currently allows "array" or "string"
+		 */
+		'return'                    => '',
+
+		/**
 		 * An associative array of {post-type} => array() including the same
 		 * setting names as the root options array as overrides for the keyed
 		 * post type. These post-type-specific settings override any defined
