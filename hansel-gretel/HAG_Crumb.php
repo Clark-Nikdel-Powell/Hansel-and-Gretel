@@ -346,7 +346,7 @@ final class HAG_Crumb {
 			$crumbs[] = new HAG_Crumb(
 				$options,
 				$front->post_title,
-				site_url(),
+				home_url(),
 				true,
 				$fp
 			);
@@ -354,7 +354,7 @@ final class HAG_Crumb {
 			$crumbs[] = new HAG_Crumb(
 				$options,
 				$options['home_label'],
-				site_url(),
+				home_url(),
 				true,
 				$fp || ( $bh && ! $cbh )
 			);
