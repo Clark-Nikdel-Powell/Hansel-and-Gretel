@@ -340,25 +340,14 @@ final class HAG_Crumb {
 			);
 		}
 
-		//use custom front page or fall back to the settings
-		if ( $cfp ) {
-			$front    = HAG_Utils::get_front_page();
-			$crumbs[] = new HAG_Crumb(
-				$options,
-				$front->post_title,
-				site_url(),
-				true,
-				$fp
-			);
-		} else {
-			$crumbs[] = new HAG_Crumb(
-				$options,
-				$options['home_label'],
-				site_url(),
-				true,
-				$fp || ( $bh && ! $cbh )
-			);
-		}
+		//Use home page settings
+		$crumbs[] = new HAG_Crumb(
+			$options,
+			$options['home_label'],
+			site_url(),
+			true,
+			$fp || ( $bh && ! $cbh )
+		);
 
 		//break out if we aren't looking deeper
 		if ( $fp || ! $cbh ) {
