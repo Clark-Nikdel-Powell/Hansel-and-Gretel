@@ -278,7 +278,37 @@ final class HAG_Crumb {
 
 		$crumbs = self::get_home_crumbs( $options );
 
-		if ( is_front_page() || is_home() ) {
+		/*if ( is_front_page() || is_home() ) {
+			return $crumbs;
+		}*/
+		if ( is_404() ) {
+			$crumbs = array_merge( $crumbs, self::get_404_crumbs( $options ) );
+		}
+		if ( is_search() ) {
+			$crumbs = array_merge( $crumbs, self::get_search_crumbs( $options ) );
+		}
+		if ( is_date() ) {
+			$crumbs = array_merge( $crumbs, self::get_date_archive_crumbs( $options ) );
+		}
+		if ( is_author() ) {
+			$crumbs = array_merge( $crumbs, self::get_author_crumbs( $options ) );
+		}
+		if ( is_post_type_archive() ) {
+			$crumbs = array_merge( $crumbs, self::get_post_type_crumbs( $options ) );
+		}
+		if ( is_category() || is_tag() || is_tax() ) {
+			$crumbs = array_merge( $crumbs, self::get_taxonomy_crumbs( $options ) );
+		}
+		/*if ( is_attachment() ) {
+			$crumbs = $crumbs;
+		}*/
+		if ( is_singular() ) {
+			$crumbs = array_merge( $crumbs, self::get_singular_crumbs( $options ) );
+		}
+
+		return $crumbs;
+
+/*		if ( is_front_page() || is_home() ) {
 			return $crumbs;
 		} elseif ( is_404() ) {
 			return array_merge( $crumbs, self::get_404_crumbs( $options ) );
@@ -298,7 +328,7 @@ final class HAG_Crumb {
 			return array_merge( $crumbs, self::get_singular_crumbs( $options ) );
 		} else {
 			return $crumbs;
-		}
+		}*/
 	}
 
 	/**
@@ -340,14 +370,33 @@ final class HAG_Crumb {
 			);
 		}
 
-		//Use home page settings
-		$crumbs[] = new HAG_Crumb(
-			$options,
-			$options['home_label'],
-			site_url(),
-			true,
-			$fp || ( $bh && ! $cbh )
-		);
+		//use custom front page or fall back to the settings
+		if ( $cfp ) {
+
+			$front = HAG_Utils::get_front_page();
+
+			if ( isset( $options['home_label'] ) && ! empty( $options['home_label'] ) ) {
+				$label = $options['home_label'];
+			} else {
+				$label = $front->post_title;
+			}
+
+			$crumbs[] = new HAG_Crumb(
+				$options,
+				$label,
+				site_url(),
+				true,
+				$fp
+			);
+		} else {
+			$crumbs[] = new HAG_Crumb(
+				$options,
+				$options['home_label'],
+				site_url(),
+				true,
+				$fp || ( $bh && ! $cbh )
+			);
+		}
 
 		//break out if we aren't looking deeper
 		if ( $fp || ! $cbh ) {
